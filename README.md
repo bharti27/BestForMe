@@ -1,8 +1,8 @@
-**BestForMe**
-This project is created with [Create React App](https://github.com/facebook/create-react-app).
-BestForME is a **Cross Domain Media Recommendation system**. BFM recommend projects based on users interest not just in one domain but in multiple domain like, movies, books, podcast, video games
+#BestForMe
 
-# Available Scripts
+BestForME is a **Cross Domain Media Recommendation system**. BFM recommend media based on users interest not just in one domain but in multiple domains like, movies, books, podcasts, video games
+
+## Available Scripts
 
 In the project directory, you can run:
 
