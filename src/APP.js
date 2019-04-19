@@ -11,6 +11,7 @@ function APP() {
     return (
         <Router>
             <div>
+                <Header/>
                 <ul>
                     <li>
                         <Link to="/">index</Link>
@@ -25,7 +26,7 @@ function APP() {
                         <Link to="/Favorites">Favorites</Link>
                     </li>
                 </ul>
-                <Header/>
+                
                 <hr />
                 <Route exact path="/" component={ Login } />
                 <Route path="/dashboard" component={DashBoard} />
