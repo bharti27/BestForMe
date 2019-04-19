@@ -6,12 +6,13 @@ import {Registration} from "./components/Registration";
 import {Favorites} from "./components/Favorites";
 import {Account} from "./components/Account";
 import Header from "./components/Header";
+import PrimarySearchAppBar from "./components/AppBar";
 
 function APP() {
     return (
         <Router>
             <div>
-                <Header/>
+                <PrimarySearchAppBar/>
                 <ul>
                     <li>
                         <Link to="/">index</Link>
