@@ -12,6 +12,7 @@ function APP() {
     return (
         <Router>
             <div>
+<<<<<<< HEAD
                 <PrimarySearchAppBar/>
                 <ul>
                     <li>
@@ -29,6 +30,9 @@ function APP() {
                 </ul>
                 
                 <hr />
+=======
+                <Header/>
+>>>>>>> master
                 <Route exact path="/" component={ Login } />
                 <Route path="/dashboard" component={DashBoard} />
                 <Route path="/registration" component={Registration} />

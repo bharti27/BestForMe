@@ -2,3 +2,17 @@
 .h1{
     margin: 0;
 }
+.login-container {
+    border: 1px solid lightgray;
+    width: 500px;
+    margin-top: 10%;
+    border-radius: 4px;
+    margin-left: calc( 50% - 250px );
+    padding: 35px;
+    height: 320px;
+}
+.error {
+    color: red;
+    font-size: 12px;
+    margin: 0 0 15px 0;
+}
