@@ -5,6 +5,7 @@ import {Login} from "./components/Login";
 import {Registration} from "./components/Registration";
 import {Favorites} from "./components/Favorites";
 import {Account} from "./components/Account";
+import Header from "./components/Header";
 
 function APP() {
     return (
@@ -24,13 +25,13 @@ function APP() {
                         <Link to="/Favorites">Favorites</Link>
                     </li>
                 </ul>
-
+                <Header/>
                 <hr />
                 <Route exact path="/" component={ Login } />
                 <Route path="/dashboard" component={DashBoard} />
                 <Route path="/registration" component={Registration} />
                 <Route path="/favorites" component={Favorites} />
-                <Route path="/accounts" component={Account} />
+                <Route path="/account" component={Account} />
             </div>
         </Router>
     );

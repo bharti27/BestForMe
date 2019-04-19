@@ -10,14 +10,7 @@ export class Login extends Component {
 
     render() {
         return (
-            <div className="header">
-                <header className="header card-panel cyan">
-                    <h1>
-                        BestForME
-                    </h1>
-                </header>
-
-            </div>
+            <h1>Login Page Placeholder</h1>
         );
     }
 }

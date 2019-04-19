@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import M from "materialize-css";
 import Cards from "./Cards";
 import APP from "../Utils";
+import Header from "./Header";
 
 export class DashBoard extends Component {
     constructor( props ) {
@@ -21,12 +22,7 @@ export class DashBoard extends Component {
     }
     render() {
         return (
-            <div className="header">
-                <header className="header card-panel cyan">
-                    <h1>
-                        BestForME
-                    </h1>
-                </header>
+            <div className="Dashboard">
                 <div className="">
                     <h4>Movies</h4>
                     <div className = "row" >
