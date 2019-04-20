@@ -5,7 +5,6 @@ import {Login} from "./components/Login";
 import {Registration} from "./components/Registration";
 import {Favorites} from "./components/Favorites";
 import {Account} from "./components/Account";
-import Header from "./components/Header";
 import NavBar from "./components/NavBar";
 
 function APP() {
