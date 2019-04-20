@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import M from "materialize-css";
+import $ from "jquery";
 import Cards from "./Cards";
 import APP from "../Utils";
-import Header from "./Header";
+window.jQuery = window.$ = $;
+require( 'owl.carousel' );
 
 export class DashBoard extends Component {
     constructor( props ) {
@@ -16,24 +17,45 @@ export class DashBoard extends Component {
     componentWillMount() {
 
         const callbackMethod = response  => {
-            this.setState( {data: response} );
+            this.setState( {data: response}, this.initCarousel );
         };
         APP.getResultsFromTasteDive( { q: "Red Hot Chili Peppers, Pulp Fiction", info: 1 }, callbackMethod );
     }
+
+    initCarousel() {
+        $('.owl-carousel').owlCarousel( {
+            loop:false,
+            margin:30,
+            nav:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            } } );
+    }
+
     render() {
         return (
-            <div className="Dashboard">
+            <div className="dashboard">
                 <div className="">
+                    <div className= "divider" />
                     <h4>Movies</h4>
-                    <div className = "row" >
+                    <div className = "owl-carousel owl-theme" >
                     {this.state.data.Similar.Results.map((value, index) => {
                         if ( value.Type === "movie"  ) {
                             return <Cards data={value} key={value.yID}/>;
                         }
                     })}
                     </div>
+                    <div className= "divider" />
                     <h4>Music</h4>
-                    <div className = "row" >
+                    <div className = "owl-carousel owl-theme" >
                             {this.state.data.Similar.Results.map((value, index) => {
                                 if ( value.Type === "music"  ) {
                                     return <Cards data={value} key={value.yID}/>;
@@ -41,7 +63,6 @@ export class DashBoard extends Component {
                             })}
                     </div>
                 </div>
-
             </div>
         );
     }
