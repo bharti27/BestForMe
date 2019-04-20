@@ -5,13 +5,29 @@ import {Login} from "./components/Login";
 import {Registration} from "./components/Registration";
 import {Favorites} from "./components/Favorites";
 import {Account} from "./components/Account";
-import Header from "./components/Header";
+import NavBar from "./components/NavBar";
 
 function APP() {
     return (
         <Router>
             <div>
-                <Header/>
+                <NavBar/>
+                <ul>
+                    <li>
+                        <Link to="/">index</Link>
+                    </li>
+                    <li>
+                        <Link to="/Dashboard">Dashboard</Link>
+                    </li>
+                    <li>
+                        <Link to="/registration">Registration</Link>
+                    </li>
+                    <li>
+                        <Link to="/Favorites">Favorites</Link>
+                    </li>
+                </ul>
+                
+                <hr />
                 <Route exact path="/" component={ Login } />
                 <Route path="/dashboard" component={DashBoard} />
                 <Route path="/registration" component={Registration} />
