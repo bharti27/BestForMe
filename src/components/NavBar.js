@@ -14,8 +14,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import Favorite from '@material-ui/icons/Favorite';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Home from '@material-ui/icons/Home'
 
 const styles = theme => ({
   root: {
@@ -87,20 +88,20 @@ const styles = theme => ({
   },
 });
 
-class PrimarySearchAppBar extends React.Component {
+class NavBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
   };
 
-  handleProfileMenuOpen = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
+//   handleProfileMenuOpen = event => {
+//     this.setState({ anchorEl: event.currentTarget });
+//   };
 
-  handleMenuClose = () => {
-    this.setState({ anchorEl: null });
-    this.handleMobileMenuClose();
-  };
+//   handleMenuClose = () => {
+//     this.setState({ anchorEl: null });
+//     this.handleMobileMenuClose();
+//   };
 
   handleMobileMenuOpen = event => {
     this.setState({ mobileMoreAnchorEl: event.currentTarget });
@@ -109,25 +110,32 @@ class PrimarySearchAppBar extends React.Component {
   handleMobileMenuClose = () => {
     this.setState({ mobileMoreAnchorEl: null });
   };
+  navToHome = event =>{
+    window.location.href = '/';
+    if(this.state.mobileMoreAnchorEl !== null){
+      this.handleMobileMenuClose();
+    }
+  }
 
+  navToFavorites = event =>{
+    window.location.href = '/favorites';
+    if(this.state.mobileMoreAnchorEl !== null){
+      this.handleMobileMenuClose();
+    }
+  }
+
+  navToAccount = event => {
+    window.location.href = '/account';
+    if(this.state.mobileMoreAnchorEl !== null){
+      this.handleMobileMenuClose();
+    }
+  }
+
+  
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
-    const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const renderMenu = (
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMenuOpen}
-        onClose={this.handleMenuClose}
-      >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
-      </Menu>
-    );
 
     const renderMobileMenu = (
       <Menu
@@ -137,26 +145,16 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
+        <MenuItem  onClick={this.navToHome}>
+            <Home/>
+          <p>Home</p>
         </MenuItem>
-        <MenuItem onClick={this.handleMobileMenuClose}>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
+        <MenuItem  onClick={this.navToFavorites}>
+            <Favorite />
+          <p>Favorites</p>
         </MenuItem>
-        <MenuItem onClick={this.handleProfileMenuOpen}>
-          <IconButton color="inherit">
+        <MenuItem onClick={this.navToAccount}>
             <AccountCircle />
-          </IconButton>
           <p>Profile</p>
         </MenuItem>
       </Menu>
@@ -166,61 +164,53 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               Material-UI
             </Typography>
+            
+            <div className={classes.grow} />
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
               <InputBase
                 placeholder="Search…"
+                fullWidth="true"
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,
                 }}
               />
             </div>
-            <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
+              <IconButton color="inherit" onClick={this.navToHome}>
+                  <Home/>
               </IconButton>
-              <IconButton color="inherit">
-                <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
+              <IconButton color="inherit" onClick={this.navToFavorites}>
+                  <Favorite />
               </IconButton>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
+              <IconButton color="inherit" onClick={this.navToAccount}>
                 <AccountCircle />
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
+              <IconButton aria-haspopup="true" 
+              onClick={this.handleMobileMenuOpen} 
+              color="inherit">
                 <MoreIcon />
               </IconButton>
             </div>
           </Toolbar>
         </AppBar>
-        {renderMenu}
+        {/* {renderMenu} */}
         {renderMobileMenu}
       </div>
     );
   }
 }
 
-PrimarySearchAppBar.propTypes = {
+NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchAppBar);
+export default withStyles(styles)(NavBar);

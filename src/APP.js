@@ -6,14 +6,13 @@ import {Registration} from "./components/Registration";
 import {Favorites} from "./components/Favorites";
 import {Account} from "./components/Account";
 import Header from "./components/Header";
-import PrimarySearchAppBar from "./components/AppBar";
+import NavBar from "./components/NavBar";
 
 function APP() {
     return (
         <Router>
             <div>
-<<<<<<< HEAD
-                <PrimarySearchAppBar/>
+                <NavBar/>
                 <ul>
                     <li>
                         <Link to="/">index</Link>
@@ -30,9 +29,6 @@ function APP() {
                 </ul>
                 
                 <hr />
-=======
-                <Header/>
->>>>>>> master
                 <Route exact path="/" component={ Login } />
                 <Route path="/dashboard" component={DashBoard} />
                 <Route path="/registration" component={Registration} />
