@@ -20,27 +20,35 @@
     padding: 40px;
 }
 .owl-prev{
-    background: #26a69a !important;
+    background: #ff9800 !important;
     position: absolute;
-    top: calc( 50% - 50px );
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
+    top: 2%;
+    height: 277px;
+    width: 25px;
+    left: -30px;
+    border-radius: 4px;
     color: white !important;
     font-size: 30px !important;
-    line-height: 50px !important;
-    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+    /*line-height: 50px !important;*/
+    /*box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);*/
 }
 .owl-next{
-    background: #26a69a !important;
+    background: #ff9800 !important;
     position: absolute;
-    top: calc( 50% - 50px );
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    right : 0;
+    top: 2%;
+    height: 277px;
+    width: 25px;
+    border-radius: 4px;
+    right : -30px;
     color: white !important;
     font-size: 30px !important;
-    line-height: 50px !important;
-    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+    /*line-height: 50px !important;*/
+    /*box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);*/
+}
+.card .card-content p {
+    color: #757575;
+    font-size: 12px;
+}
+.card {
+    height: 277px;
 }
