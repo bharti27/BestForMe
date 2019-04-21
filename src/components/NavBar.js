@@ -13,7 +13,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Favorite from '@material-ui/icons/Favorite';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Home from '@material-ui/icons/Home'
+import Home from '@material-ui/icons/Home';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const styles = theme => ({
   root: {
@@ -91,14 +93,14 @@ class NavBar extends React.Component {
     mobileMoreAnchorEl: null,
   };
 
-//   handleProfileMenuOpen = event => {
-//     this.setState({ anchorEl: event.currentTarget });
-//   };
+  handleProfileMenuOpen = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
 
-//   handleMenuClose = () => {
-//     this.setState({ anchorEl: null });
-//     this.handleMobileMenuClose();
-//   };
+  handleMenuClose = () => {
+    this.setState({ anchorEl: null });
+    this.handleMobileMenuClose();
+  };
 
   handleMobileMenuOpen = event => {
     this.setState({ mobileMoreAnchorEl: event.currentTarget });
@@ -107,8 +109,12 @@ class NavBar extends React.Component {
   handleMobileMenuClose = () => {
     this.setState({ mobileMoreAnchorEl: null });
   };
+  
   navToHome = event =>{
     window.location.href = '/';
+    if(this.state.anchorEl !== null){
+      this.handleMenuClose();
+    }
     if(this.state.mobileMoreAnchorEl !== null){
       this.handleMobileMenuClose();
     }
@@ -116,6 +122,9 @@ class NavBar extends React.Component {
 
   navToFavorites = event =>{
     window.location.href = '/favorites';
+    if(this.state.anchorEl !== null){
+      this.handleMenuClose();
+    }
     if(this.state.mobileMoreAnchorEl !== null){
       this.handleMobileMenuClose();
     }
@@ -123,6 +132,20 @@ class NavBar extends React.Component {
 
   navToAccount = event => {
     window.location.href = '/account';
+    if(this.state.anchorEl !== null){
+      this.handleMenuClose();
+    }
+    if(this.state.mobileMoreAnchorEl !== null){
+      this.handleMobileMenuClose();
+    }
+  }
+
+  logout = event => {
+    // TODO: Clear current user
+    window.location.href ='/';
+    if(this.state.anchorEl !== null){
+      this.handleMenuClose();
+    }
     if(this.state.mobileMoreAnchorEl !== null){
       this.handleMobileMenuClose();
     }
@@ -132,8 +155,30 @@ class NavBar extends React.Component {
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
+    const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    // Menu for Account Icon
+    const renderMenu = (
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isMenuOpen}
+        onClose={this.handleMenuClose}
+      >
+        <MenuItem onClick={this.navToAccount}>
+          <AccountCircle />
+          <p>Profile</p>
+        </MenuItem>
+        <MenuItem onClick={this.logout}>
+          <FontAwesomeIcon icon={faSignOutAlt}/>
+          <p>Logout</p>
+        </MenuItem>
+      </Menu>
+    );
+
+    // Menu for when NavBar is Mobile size
     const renderMobileMenu = (
       <Menu
         anchorEl={mobileMoreAnchorEl}
@@ -166,7 +211,7 @@ class NavBar extends React.Component {
             </Typography>
             
             <div className={classes.grow} />
-            <div className={classes.search}>
+            {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -178,7 +223,7 @@ class NavBar extends React.Component {
                   input: classes.inputInput,
                 }}
               />
-            </div>
+            </div> */}
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit" onClick={this.navToHome}>
                   <Home/>
@@ -186,7 +231,7 @@ class NavBar extends React.Component {
               <IconButton color="inherit" onClick={this.navToFavorites}>
                   <Favorite />
               </IconButton>
-              <IconButton color="inherit" onClick={this.navToAccount}>
+              <IconButton color="inherit" onClick={this.handleProfileMenuOpen} >
                 <AccountCircle />
               </IconButton>
             </div>
@@ -199,7 +244,7 @@ class NavBar extends React.Component {
             </div>
           </Toolbar>
         </AppBar>
-        {/* {renderMenu} */}
+        {renderMenu}
         {renderMobileMenu}
       </div>
     );
