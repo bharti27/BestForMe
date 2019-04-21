@@ -162,7 +162,7 @@ class NavBar extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              Material-UI
+              BestForMe
             </Typography>
             
             <div className={classes.grow} />
