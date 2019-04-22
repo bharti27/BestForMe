@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import loginDetails from '../usersDetails'
-
+import loginDetails from '../usersDetails';
+import App from '../Utils'
 export class Login extends Component {
     constructor( props ) {
         super( props );
@@ -49,6 +49,8 @@ export class Login extends Component {
         var login =JSON.parse( JSON.stringify(loginDetails) );
         if ( login.users[ this.state.username ] != null ) {
             if ( login.users[ this.state.username ].password === this.state.password ) {
+                App.store = { ...login.users[ this.state.username ] };
+                console.log( App.store );
                 window.location.href = '/dashboard';
             } else {
                 this.setState ( {

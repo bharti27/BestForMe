@@ -19,6 +19,7 @@ export class DashBoard extends Component {
         const callbackMethod = response  => {
             this.setState( {data: response}, this.initCarousel );
         };
+        console.log( APP.store );
         APP.getResultsFromTasteDive( { q: "Red Hot Chili Peppers, Pulp Fiction", info: 1 }, callbackMethod );
     }
 

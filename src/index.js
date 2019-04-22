@@ -5,7 +5,7 @@ import APP from './APP';
 import * as serviceWorker from './serviceWorker';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'owl.carousel/dist/assets/owl.carousel.css';
-
+const store = {};
 ReactDOM.render(
     <APP />,
     document.getElementById('root')

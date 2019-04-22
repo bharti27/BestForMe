@@ -5,6 +5,8 @@ import $ from 'jquery';
 
 const Utils = {
 
+    store: {},
+
     /** Define Params as var params = {
     q: "",
     type: "",
