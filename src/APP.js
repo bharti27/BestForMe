@@ -11,8 +11,11 @@ class APP extends Component {
     constructor(props) {
         super(props);
 
+        // TODO: figure out how to share state or props in a 
+        //       way that child components (pages) have access
         this.state = {
-            authenticatedUserName : ""
+            // the username of the authenticated user
+            authenticatedUser : "mamoke88"
         }
     }
     render() {

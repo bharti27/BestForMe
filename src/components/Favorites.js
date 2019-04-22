@@ -7,6 +7,7 @@ export class Favorites extends Component {
   constructor( props ) {
     super(props);
     this.state = { 
+      //authenticatedUser: props.authenticatedUser,
       authenticatedUser: "mamoke88",
       favorites: []
     };
@@ -18,11 +19,11 @@ export class Favorites extends Component {
 
     componentWillMount() {
       var favorites = JSON.parse(JSON.stringify(loginDetails));
-      if (this.state.authenticatedUser && favorites.loginDetails.users[this.state.authenticatedUser] !== null){
+      // if (this.props.authenticatedUser && favorites.loginDetails.users[this.props.authenticatedUser] !== null){
         this.state.favorites = favorites.loginDetails.users[this.state.authenticatedUser].favorites;
-      } else {
-        window.location.href = '/';
-      }
+      // } else {
+      //   window.location.href = '/';
+      // }
     }
 
     render() {

@@ -49,6 +49,8 @@ export class Login extends Component {
         var login =JSON.parse( JSON.stringify(loginDetails) );
         if ( login.users[ this.state.username ] != null ) {
             if ( login.users[ this.state.username ].password === this.state.password ) {
+                // this.state.authenticatedUser = this.state.username;
+                // alert("this username: "+this.state.username+"\nauth username: "+this.state.authenticatedUser);
                 window.location.href = '/dashboard';
             } else {
                 this.setState ( {
