@@ -11,6 +11,12 @@
     padding: 35px;
     height: 320px;
 }
+
+.stepperComp {
+  width: 500px;
+  margin-left: calc( 50% - 250px );
+}
+
 .error {
     color: red;
     font-size: 12px;
@@ -186,3 +192,4 @@
     border-radius: 5px;
     margin-top: -6px
 }
+

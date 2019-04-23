@@ -12,6 +12,7 @@
     "material-ui": "^0.20.2",
     "materialize-css": "^1.0.0-rc.2",
     "owl.carousel": "^2.3.4",
+    "package.json": "^2.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-leaf-carousel": "^1.2.2",
