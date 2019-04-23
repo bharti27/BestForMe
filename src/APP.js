@@ -11,18 +11,29 @@ class APP extends Component {
     constructor(props) {
         super(props);
 
-        // TODO: figure out how to share state or props in a 
-        //       way that child components (pages) have access
         this.state = {
-            // the username of the authenticated user
-            authenticatedUser : "mamoke88"
+            // The username of the authenticated user
+            authenticatedUser : null
         }
+
+        this.updateAuthenticatedUser = this.updateAuthenticatedUser.bind(this);
     }
+
+    updateAuthenticatedUser = function(username) {
+        alert("state =" +JSON.stringify(this.state)+"\nusername = "+username)
+        
+        //this.state.authenticatedUser = username
+        this.setState({
+            authenticatedUser: {username}
+        })
+        alert("state =" +JSON.stringify(this.state)+"\nusername = "+username)
+    }
+
     render() {
         return (
             <Router>
                 <div>
-                    <NavBar/>
+                    <NavBar authenticatedUser={this.state.authenticatedUser}/>
                     <ul>
                         <li>
                             <Link to="/">index</Link>
@@ -39,11 +50,11 @@ class APP extends Component {
                     </ul>
                     
                     <hr />
-                    <Route exact path="/" component={ Login } />
-                    <Route path="/dashboard" component={DashBoard} />
-                    <Route path="/registration" component={Registration} />
-                    <Route path="/favorites" component={Favorites} />
-                    <Route path="/account" component={Account} />
+                    <Route exact path="/" render={(props) => <Login {...props} authenticatedUser={this.state.authenticatedUser} updateAuthenticatedUser={this.updateAuthenticatedUser}/>} />
+                    <Route path="/dashboard" render={(props) => <DashBoard {...props} authenticatedUser={this.state.authenticatedUser}/>} />
+                    <Route path="/registration" render={(props) => <Registration {...props} authenticatedUser={this.state.authenticatedUser}/>} />
+                    <Route path="/favorites" render={(props) => <Favorites {...props} authenticatedUser={this.state.authenticatedUser}/>} />
+                    <Route path="/account" render={(props) => <Account {...props} authenticatedUser={this.state.authenticatedUser}/>} />
                 </div>
             </Router>
         );

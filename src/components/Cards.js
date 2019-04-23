@@ -27,7 +27,7 @@ export class Cards extends Component {
     render() {
 
         return (
-                <div className="col s4 item">
+                <div className="col s3 item">
                     <div className="card ">
                         <div className="card-image">
                             <img src={"http://img.youtube.com/vi/"+this.props.data.yID + "/mqdefault.jpg"}/>

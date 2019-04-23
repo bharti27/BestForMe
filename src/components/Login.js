@@ -47,10 +47,9 @@ export class Login extends Component {
         event.preventDefault();
         event.stopPropagation();
         var login =JSON.parse( JSON.stringify(loginDetails) );
-        if ( login.users[ this.state.username ] != null ) {
-            if ( login.users[ this.state.username ].password === this.state.password ) {
-                // this.state.authenticatedUser = this.state.username;
-                // alert("this username: "+this.state.username+"\nauth username: "+this.state.authenticatedUser);
+        if ( login.loginDetails.users[ this.state.username ] != null ) {
+            if ( login.loginDetails.users[ this.state.username ].password === this.state.password ) {
+                this.props.updateAuthenticatedUser(this.state.username );
                 window.location.href = '/dashboard';
             } else {
                 this.setState ( {
