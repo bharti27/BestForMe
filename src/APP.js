@@ -23,24 +23,8 @@ class APP extends Component {
             <Router>
                 <div>
                     <NavBar/>
-                    <ul>
-                        <li>
-                            <Link to="/">index</Link>
-                        </li>
-                        <li>
-                            <Link to="/Dashboard">Dashboard</Link>
-                        </li>
-                        <li>
-                            <Link to="/registration">Registration</Link>
-                        </li>
-                        <li>
-                            <Link to="/Favorites">Favorites</Link>
-                        </li>
-                    </ul>
-                    
-                    <hr />
                     <Route exact path="/" component={ Login } />
-                    <Route path="/dashboard" component={DashBoard} />
+                    <Route path="/dashboard" component={DashBoard}/>
                     <Route path="/registration" component={Registration} />
                     <Route path="/favorites" component={Favorites} />
                     <Route path="/account" component={Account} />

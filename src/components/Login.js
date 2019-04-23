@@ -46,7 +46,7 @@ export class Login extends Component {
     submit( event ) {
         event.preventDefault();
         event.stopPropagation();
-        var login =JSON.parse( JSON.stringify(loginDetails) );
+        let login =JSON.parse( JSON.stringify(loginDetails) ).loginDetails;
         if ( login.users[ this.state.username ] != null ) {
             if ( login.users[ this.state.username ].password === this.state.password ) {
                 App.store = { ...login.users[ this.state.username ] };
