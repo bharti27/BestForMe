@@ -7,8 +7,6 @@ export class Favorites extends Component {
   constructor( props ) {
     super(props);
     this.state = { 
-      //authenticatedUser: props.authenticatedUser,
-      authenticatedUser: "mamoke88",
       favorites: []
     };
   }
@@ -19,12 +17,16 @@ export class Favorites extends Component {
 
     componentWillMount() {
       var favorites = JSON.parse(JSON.stringify(loginDetails));
-      // if (this.props.authenticatedUser && favorites.loginDetails.users[this.props.authenticatedUser] !== null){
-        this.state.favorites = favorites.loginDetails.users[this.state.authenticatedUser].favorites;
-      // } else {
-      //   window.location.href = '/';
-      // }
+      if (this.props.authenticatedUser !== null && favorites.loginDetails.users[this.props.authenticatedUser] !== null){
+        this.state.favorites = favorites.loginDetails.users[this.props.authenticatedUser].favorites;
+      } else {
+       // window.location.href = '/';
+      }
     }
+
+    componentWillUpdate( nextProps, nextState ) { 
+      alert("auth= " +this.props.authenticatedUser+"\nprops: "+this.props +"\nnextProps: "+nextProps)
+      return true }
 
     render() {
       let resultsDisplay;

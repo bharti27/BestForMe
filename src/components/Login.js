@@ -51,6 +51,11 @@ export class Login extends Component {
             if ( login.users[ this.state.username ].password === this.state.password ) {
                 App.store = { ...login.users[ this.state.username ] };
                 console.log( App.store );
+// This is some of the problem codes                
+        // var login =JSON.parse( JSON.stringify(loginDetails) );
+        // if ( login.loginDetails.users[ this.state.username ] != null ) {
+        //     if ( login.loginDetails.users[ this.state.username ].password === this.state.password ) {
+        //         this.props.updateAuthenticatedUser(this.state.username );
                 window.location.href = '/dashboard';
             } else {
                 this.setState ( {
