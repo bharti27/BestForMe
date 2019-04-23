@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import $ from "jquery";
 import Cards from "./Cards";
-import APP from "../Utils";
+import Utils from "../Utils";
 window.jQuery = window.$ = $;
 require( 'owl.carousel' );
 
@@ -19,7 +19,7 @@ export class DashBoard extends Component {
         const callbackMethod = response  => {
             this.setState( {data: response}, this.initCarousel );
         };
-        APP.getResultsFromTasteDive( { q: "Red Hot Chili Peppers, Pulp Fiction", info: 1 }, callbackMethod );
+        Utils.getResultsFromTasteDive( { q: "Red Hot Chili Peppers, Pulp Fiction", info: 1 }, callbackMethod );
     }
 
     initCarousel() {
