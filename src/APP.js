@@ -33,14 +33,6 @@ class APP extends Component {
         return (
             <Router>
                 <div>
-<<<<<<< HEAD
-                    <NavBar/>
-                    <Route exact path="/" component={ Login } />
-                    <Route path="/dashboard" component={DashBoard}/>
-                    <Route path="/registration" component={Registration} />
-                    <Route path="/favorites" component={Favorites} />
-                    <Route path="/account" component={Account} />
-=======
                     <NavBar authenticatedUser={this.state.authenticatedUser}/>
                     <ul>
                         <li>
@@ -63,7 +55,6 @@ class APP extends Component {
                     <Route path="/registration" render={(props) => <Registration {...props} authenticatedUser={this.state.authenticatedUser}/>} />
                     <Route path="/favorites" render={(props) => <Favorites {...props} authenticatedUser={this.state.authenticatedUser}/>} />
                     <Route path="/account" render={(props) => <Account {...props} authenticatedUser={this.state.authenticatedUser}/>} />
->>>>>>> feature/cardGrid
                 </div>
             </Router>
         );

@@ -29,13 +29,8 @@ export class Cards extends Component {
     render() {
 
         return (
-<<<<<<< HEAD
                 <div className="col s4 item">
                     <div className="card" onClick={ this.cardClicked }>
-=======
-                <div className="col s3 item">
-                    <div className="card ">
->>>>>>> feature/cardGrid
                         <div className="card-image">
                             <img src={"http://img.youtube.com/vi/"+this.props.data.yID + "/mqdefault.jpg"}/>
                                 <div className="btn-floating halfway-fab waves-effect waves-light pink lighten-1" onClick={ this.likedCard }>
