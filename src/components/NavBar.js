@@ -14,9 +14,17 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Favorite from '@material-ui/icons/Favorite';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Home from '@material-ui/icons/Home';
+<<<<<<< HEAD
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
+=======
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+    Link
+} from "react-router-dom";
+>>>>>>> e01c6129f09375c86c61c0ad372ea34aa0c8e95a
 const styles = theme => ({
   root: {
     width: '100%',
@@ -111,17 +119,17 @@ class NavBar extends React.Component {
   };
 
   navToHome = event =>{
-    window.location.href = '/';
+    this.props.history.push('/dashboard');
     if(this.state.anchorEl !== null){
       this.handleMenuClose();
     }
     if(this.state.mobileMoreAnchorEl !== null){
       this.handleMobileMenuClose();
     }
-  }
+  };
 
   navToFavorites = event =>{
-    window.location.href = '/favorites';
+      //this.props.history.push('/favorites');
     if(this.state.anchorEl !== null){
       this.handleMenuClose();
     }
@@ -131,7 +139,7 @@ class NavBar extends React.Component {
   }
 
   navToAccount = event => {
-    window.location.href = '/account';
+      //this.props.history.push('/account');
     if(this.state.anchorEl !== null){
       this.handleMenuClose();
     }
@@ -142,7 +150,7 @@ class NavBar extends React.Component {
 
   logout = event => {
     // TODO: Clear current user
-    window.location.href ='/';
+      //this.props.history.push('/');
     if(this.state.anchorEl !== null){
       this.handleMenuClose();
     }
@@ -187,18 +195,24 @@ class NavBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem  onClick={this.navToHome}>
+          <Link to="/dashboard">
+        <MenuItem >
             <Home/>
           <p>Home</p>
         </MenuItem>
-        <MenuItem  onClick={this.navToFavorites}>
+          </Link>
+          <Link to="/favorites">
+        <MenuItem>
             <Favorite />
           <p>Favorites</p>
         </MenuItem>
-        <MenuItem onClick={this.navToAccount}>
+          </Link>
+          <Link to="/account">
+        <MenuItem >
             <AccountCircle />
           <p>Profile</p>
         </MenuItem>
+          </Link>
       </Menu>
     );
 
@@ -225,15 +239,21 @@ class NavBar extends React.Component {
               />
             </div> */}
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit" onClick={this.navToHome}>
+                <Link to="/dashboard">
+              <IconButton color="inherit" >
                   <Home/>
               </IconButton>
-              <IconButton color="inherit" onClick={this.navToFavorites}>
+                </Link>
+                <Link to="/favorites">
+              <IconButton color="inherit" >
                   <Favorite />
               </IconButton>
-              <IconButton color="inherit" onClick={this.handleProfileMenuOpen} >
+                </Link>
+                <Link to="/accounts">
+              <IconButton color="inherit" >
                 <AccountCircle />
               </IconButton>
+                </Link>
             </div>
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true"

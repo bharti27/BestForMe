@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import loginDetails from '../usersDetails'
+import loginDetails from '../usersDetails';
+import { connect } from "react-redux";
+import { addAuthenticatedUser } from "../actions";
 
-export class Login extends Component {
+class Login extends Component {
     constructor( props ) {
         super( props );
         this.state = {
@@ -46,12 +48,11 @@ export class Login extends Component {
     submit( event ) {
         event.preventDefault();
         event.stopPropagation();
-        var login =JSON.parse( JSON.stringify(loginDetails) );
+        let login =JSON.parse( JSON.stringify(loginDetails) ).loginDetails;
         if ( login.users[ this.state.username ] != null ) {
             if ( login.users[ this.state.username ].password === this.state.password ) {
-                // this.state.authenticatedUser = this.state.username;
-                // alert("this username: "+this.state.username+"\nauth username: "+this.state.authenticatedUser);
-                window.location.href = '/dashboard';
+                this.props.storeAuthenticatedUser( { ...login.users[ this.state.username ] } );
+                this.props.history.push('/dashboard');
             } else {
                 this.setState ( {
                     errorMessage: "Please enter correct username/password",
@@ -68,3 +69,14 @@ export class Login extends Component {
         }
     }
 }
+
+const mapStateToProps = state => {
+    return { store: state.authUser};
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        storeAuthenticatedUser: payload => dispatch( addAuthenticatedUser(payload))
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

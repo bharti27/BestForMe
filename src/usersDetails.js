@@ -5,18 +5,19 @@ const loginDetails = {
       "firstName": "Bharti",
       "lastName": "Sharma",
       "age": "24",
-      "interest": [ "romance", "drama", "" ],
-      "preferredMediaType": [ "books", "movies", "musics" ],
+      "interest": [ "romance", "drama" ],
+      "preferredMediaType": [ "book", "movie", "music" ],
       "primaryColor": "",
-      "secondaryColor": ""
+      "secondaryColor": "",
+        "favorites": []
     },
     "mamoke88": {
       "password": "helloWorld",
       "firstName": "mamoke",
       "lastName": "",
       "age": "24",
-      "interest": [ "romance", "drama", "" ],
-      "preferredMediaType": [ "books", "movies" ],
+      "interest": [ "romance", "drama" ],
+      "preferredMediaType": [ "book", "movie" ],
       "primaryColor": "",
       "secondaryColor": "",
       "favorites" : [{
@@ -37,9 +38,12 @@ const loginDetails = {
         "wTeaser": "Halloween: The Curse of Michael Myers is a 1995 American slasher film directed by Joe Chappelle and written by Daniel Farrands. The film stars Donald Pleasence in one of his final film appearances. The film also features the first starring role by Paul Rudd and Marianne Hagan. The sixth installment in the Halloween film series, it follows Dr. Sam Loomis coming out of retirement to face Michael Myers once more again. At his aid is Tommy Doyle, a returning character from the original Halloween film. Michael's niece, Jamie Lloyd, who first appeared in  Halloween 4: The Return of Michael Myers, also appears in a less prominent role. The plot of the film formally introduced the \"Curse of Thorn\", a mystical symbol that first appeared in Halloween 5: The Revenge of Michael Myers and revealed in the film to be the source of Michael Myers's immortality and drive to kill.",
         "wUrl": "https://en.wikipedia.org/wiki/Halloween:_The_Curse_of_Michael_Myers",
         "yUrl": "https://www.youtube-nocookie.com/embed/rAaPBxBxaV8",
-        "yID": "rAaPBxBxaV8"}]
+        "yID": "rAaPBxBxaV8"},
+        {"Name": "Game Of Thrones", "Type": "show", "wTeaser": "\n\n\n\nGame of Thrones is an American  fantasy drama television series created by David Benioff and D. B. Weiss. It is an adaptation of A Song of Ice and Fire, George R. R. Martin's series of fantasy novels, the first of which is A Game of Thrones. The show is filmed in Belfast and elsewhere in Northern Ireland, Canada, Croatia, Iceland, Malta, Morocco, Scotland, Spain, and the United States. The series premiered on HBO in the United States on April 17, 2011, and will conclude with its eighth season, which will premiere on April 14, 2019.Set on the fictional continents of Westeros and Essos, Game of Thrones has several plots and a large ensemble cast, but follows three story arcs. The first arc is about the Iron Throne of the Seven Kingdoms, and follows a web of alliances and conflicts among the noble dynasties either vying to claim the throne or fighting for independence from it. The second story arc focuses on the last descendant of the realm's deposed ruling dynasty, who has been exiled and is plotting a return to the throne. The third story arc follows the Night's Watch, a longstanding brotherhood charged with defending the realm against the ancient threats of the fierce peoples and legendary creatures that lie far north of The Wall, and an impending winter that threatens the realm.\n", "wUrl": "http://en.wikipedia.org/wiki/Game_of_Thrones_(TV_series)", "yUrl": "https://www.youtube-nocookie.com/embed/BpJYNVhGf1s", "yID": "BpJYNVhGf1s"}]
     }
   }
 };
-
-export default {loginDetails};
+const updateLoginDetailsFavorites= ( props, user ) => {
+    loginDetails.users[ user ].favorites.push( props );
+};
+export default { updateLoginDetailsFavorites, loginDetails};
