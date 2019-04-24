@@ -16,7 +16,7 @@ const loginDetails = {
       "firstName": "mamoke",
       "lastName": "",
       "age": "24",
-      "interest": [ "romance", "drama", "" ],
+      "interest": [ "romance", "drama" ],
       "preferredMediaType": [ "book", "movie" ],
       "primaryColor": "",
       "secondaryColor": "",

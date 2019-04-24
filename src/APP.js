@@ -26,7 +26,7 @@ class APP extends Component {
                 <NavBar />
                 <Route path="/login" component={Login} />
                 <PrivateRoute path="/dashboard" component={ DashBoard} auth = { this.props.authUser }/>
-                <PrivateRoute path="/registration" component={Registration} auth = { this.props.authUser }/>
+                <Route path="/registration" component={Registration} auth = { this.props.authUser }/>
                 <PrivateRoute path="/favorites" component={Favorites} auth = { this.props.authUser } />
                 <PrivateRoute path="/account" component={Account} auth = { this.props.authUser } />
             </div>

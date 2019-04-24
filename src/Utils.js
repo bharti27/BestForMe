@@ -20,15 +20,16 @@ const Utils = {
             url: "https://tastedive.com/api/similar",
             data: { ...params, k: "333740-BestForM-IPA6GXYF", callback: "tasteDiveResponse" },
             dataType: "jsonp",
-            jsonpCallback: "tasteDiveResponse"
+            jsonpCallback: "tasteDiveResponse",
+            success: callbackMethod
         });
 
-        let query = {
-            ...params,
-            key: "333740-BestForM-IPA6GXYF"
-        };
-
-        $.getJSON( "https://tastedive.com/api/similar?callback=?", query, callbackMethod);
+        // let query = {
+        //     ...params,
+        //     key: "333740-BestForM-IPA6GXYF"
+        // };
+        //
+        // $.getJSON( "https://tastedive.com/api/similar?callback=?", query, callbackMethod);
     },
 
     /**
