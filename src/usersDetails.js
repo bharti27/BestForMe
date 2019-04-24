@@ -5,10 +5,11 @@ const loginDetails = {
       "firstName": "Bharti",
       "lastName": "Sharma",
       "age": "24",
-      "interest": [ "romance", "drama", "" ],
-      "preferredMediaType": [ "books", "movies", "musics" ],
+      "interest": [ "romance", "drama" ],
+      "preferredMediaType": [ "book", "movie", "music" ],
       "primaryColor": "",
-      "secondaryColor": ""
+      "secondaryColor": "",
+        "favorites": []
     },
     "mamoke88": {
       "password": "helloWorld",
@@ -41,5 +42,7 @@ const loginDetails = {
     }
   }
 };
-
-export default {loginDetails};
+const updateLoginDetailsFavorites= ( props, user ) => {
+    loginDetails.users[ user ].favorites.push( props );
+};
+export default { updateLoginDetailsFavorites, loginDetails};

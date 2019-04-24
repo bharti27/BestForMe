@@ -8,6 +8,9 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "Redux": "latest",
+    "connected-react-router": "^6.4.0",
+    "history": "latest",
     "jquery": "^3.4.0",
     "material-ui": "^0.20.2",
     "materialize-css": "^1.0.0-rc.2",
@@ -15,10 +18,15 @@
     "package.json": "^2.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-history": "^0.18.2",
     "react-leaf-carousel": "^1.2.2",
     "react-modal-video": "^1.2.2",
+    "react-redux": "^7.0.2",
+    "react-router": "latest",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "redux-injector": "^0.1.0",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,6 +44,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "json-loader": "^0.5.7"
+    "json-loader": "^0.5.7",
+    "redux": "^4.0.1"
   }
 }

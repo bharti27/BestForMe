@@ -1,38 +1,40 @@
 import React, { Component }from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// //import { BrowserRouter as Router, Route, Link,
+//     Redirect,
+//     withRouter } from "react-router-dom";
 import DashBoard from "./components/DashBoard";
-import {Login} from "./components/Login";
+import Login from "./components/Login";
 import {Registration} from "./components/Registration";
-import {Favorites} from "./components/Favorites";
+import Favorites from "./components/Favorites";
 import {Account} from "./components/Account";
 import NavBar from "./components/NavBar";
+import connect from "react-redux/es/connect/connect";
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Redirect,
+    withRouter
+} from "react-router-dom";
+import {PrivateRoute} from "./PrivateRoute";
 
 class APP extends Component {
-    constructor(props) {
-        super(props);
-
-        // TODO: figure out how to share state or props in a 
-        //       way that child components (pages) have access
-        this.state = {
-            // the username of the authenticated user
-            authenticatedUser : "mamoke88"
-        }
-    }
-    render() {
+    render () {
         return (
             <Router>
-                <div>
-                    <NavBar/>
-                    <Route exact path="/" component={ Login } />
-                    <Route path="/dashboard" component={DashBoard}/>
-                    <Route path="/registration" component={Registration} />
-                    <Route path="/favorites" component={Favorites} />
-                    <Route path="/account" component={Account} />
-                </div>
-            </Router>
-        );
+            <div>
+                <NavBar />
+                <Route path="/login" component={Login} />
+                <PrivateRoute path="/dashboard" component={ DashBoard} auth = { this.props.authUser }/>
+                <PrivateRoute path="/registration" component={Registration} auth = { this.props.authUser }/>
+                <PrivateRoute path="/favorites" component={Favorites} auth = { this.props.authUser } />
+                <PrivateRoute path="/account" component={Account} auth = { this.props.authUser } />
+            </div>
+        </Router> );
     }
-    
 }
 
-export default APP;
+const mapStateToProps = state => {
+    return { authUser: state.simpleReducer.authUser};
+};
+export default connect(mapStateToProps, null)( APP );

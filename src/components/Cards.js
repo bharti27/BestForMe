@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import ModalVideo from 'react-modal-video'
+import LoginDetails from '../usersDetails'
+import App from '../Utils'
+import * as M from "materialize-css";
+import {addCardToFav} from "../actions";
+import { connect } from "react-redux";
 
 
 export class Cards extends Component {
@@ -8,13 +12,23 @@ export class Cards extends Component {
         super( props );
         this.likedCard = this.likedCard.bind( this );
         this.cardClicked = this.cardClicked.bind(this);
-        this.state = { heart: "far", modalOpen: false };
-
+        this.isLiked = this.isLiked.bind( this );
+        this.state = { heart: this.isLiked(), modalOpen: false };
+    }
+    isLiked(  ) {
+        this.props.store.favorites.map( (value, index) => {
+            if ( value.Name === this.props.data.Name ) {
+                return "fa";
+            }
+        } );
+        return "far";
     }
     componentDidMount() {
-
     }
-    likedCard(  ) {
+    likedCard( event ) {
+
+        event.preventDefault();
+        event.stopPropagation();
         if ( this.state.heart === "far" ) {
             this.setState( {
                 heart: "fa"
@@ -24,6 +38,8 @@ export class Cards extends Component {
                 heart: "far"
             } );
         }
+        M.toast({html: 'You have liked '+this.props.data.Name + ' .' } );
+        this.props.cardLiked( this.props.data );
 
     }
     render() {
@@ -45,8 +61,19 @@ export class Cards extends Component {
                 </div>
         );
     }
-    cardClicked() {
+    cardClicked( event ) {
+        event.preventDefault();
+        event.stopPropagation();
         this.props.callBack( this.props.data );
     }
 }
-export default Cards;
+const mapStateToProps = state => {
+    return { store: state.simpleReducer.authUser};
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        cardLiked: payload => dispatch( addCardToFav(payload))
+    };
+}
+export default connect( mapStateToProps, mapDispatchToProps )(Cards);

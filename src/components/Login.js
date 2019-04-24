@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import loginDetails from '../usersDetails';
-import App from '../Utils'
-export class Login extends Component {
+import { connect } from "react-redux";
+import { addAuthenticatedUser } from "../actions";
+
+class Login extends Component {
     constructor( props ) {
         super( props );
         this.state = {
@@ -49,9 +51,8 @@ export class Login extends Component {
         let login =JSON.parse( JSON.stringify(loginDetails) ).loginDetails;
         if ( login.users[ this.state.username ] != null ) {
             if ( login.users[ this.state.username ].password === this.state.password ) {
-                App.store = { ...login.users[ this.state.username ] };
-                console.log( App.store );
-                window.location.href = '/dashboard';
+                this.props.storeAuthenticatedUser( { ...login.users[ this.state.username ] } );
+                this.props.history.push('/dashboard');
             } else {
                 this.setState ( {
                     errorMessage: "Please enter correct username/password",
@@ -68,3 +69,14 @@ export class Login extends Component {
         }
     }
 }
+
+const mapStateToProps = state => {
+    return { store: state.authUser};
+};
+
+function mapDispatchToProps(dispatch) {
+    return {
+        storeAuthenticatedUser: payload => dispatch( addAuthenticatedUser(payload))
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

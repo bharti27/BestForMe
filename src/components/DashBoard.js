@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import $ from "jquery";
 import Cards from "./Cards";
-import APP from "../Utils";
 import Trending from "./Trending";
 import ModalVideo from "react-modal-video";
+import { connect } from "react-redux";
+import APP from "../Utils";
+import SimpleCard from '@material-ui/core/Card';
 window.jQuery = window.$ = $;
 require( 'owl.carousel' );
 
@@ -15,15 +17,13 @@ export class DashBoard extends Component {
         this.handleClose = this.handleClose.bind( this );
     }
     componentDidMount() {
-        // Auto initialize all the things!
 
     }
     componentWillMount() {
-
         const callbackMethod = response  => {
             this.setState( {data: response}, this.initCarousel );
         };
-        APP.getResultsFromTasteDive( { q: "Red Hot Chili Peppers, Pulp Fiction", info: 1 }, callbackMethod );
+        APP.getResultsFromTasteDive( { q: this.props.authUser.interest.join(","), info: 1 }, callbackMethod );
     }
 
     initCarousel() {
@@ -45,6 +45,7 @@ export class DashBoard extends Component {
     }
 
     render() {
+        var _self = this;
         return (
             <div className="dashboard">
                 <ModalVideo
@@ -54,35 +55,18 @@ export class DashBoard extends Component {
                     onClose={ this.handleClose }
                 />
                 <div className="">
-                    <Trending />
-                    <div className= "divider" />
-                    <h4>Movies</h4>
-                    <div className = "owl-carousel owl-theme" >
-                        {this.state.data.Similar.Info.map((value, index) => {
-                            if ( value.Type === "movie"  ) {
-                                return <Cards data={value} key={value.yID} callBack = { this.openModal }/>;
-                            }
-                        })}
-                    {this.state.data.Similar.Results.map((value, index) => {
-                        if ( value.Type === "movie"  ) {
-                            return <Cards data={value} key={value.yID} callBack = { this.openModal }/>;
-                        }
-                    })}
-                    </div>
-                    <div className= "divider" />
-                    <h4>Music</h4>
-                    <div className = "owl-carousel owl-theme" >
-                        {this.state.data.Similar.Info.map((value, index) => {
-                            if ( value.Type === "music"  ) {
-                                return <Cards data={value} key={value.yID} callBack = { this.openModal }/>;
-                            }
-                        })}
-                            {this.state.data.Similar.Results.map((value, index) => {
-                                if ( value.Type === "music"  ) {
-                                    return <Cards data={value} key={value.yID} callBack = { this.openModal }/>;
+                    <Trending data = { this.state.data.Similar }/>
+                    { this.props.authUser.preferredMediaType.map( ( value, index ) => {
+                        return (<div><div className= "divider" />
+                            <h4>{ value }</h4>
+                        <div className = "owl-carousel owl-theme" >
+                            {_self.state.data.Similar.Results.map((props, index) => {
+                                if ( props.Type === value  ) {
+                                    return <Cards data={props} key={props.yID} callBack = { this.openModal }/>;
                                 }
                             })}
-                    </div>
+                        </div></div>);
+                    } ) }
                 </div>
             </div>
         );
@@ -94,4 +78,7 @@ export class DashBoard extends Component {
         this.setState( {modalOpen: false, modalURLId: "", modalType: "" } );
     }
 }
-export default DashBoard;
+const mapStateToProps = state => {
+    return { authUser: state.simpleReducer.authUser};
+};
+export default connect(mapStateToProps, null)(DashBoard);

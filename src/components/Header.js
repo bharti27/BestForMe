@@ -1,8 +1,8 @@
 // import React, { Component } from 'react';
 // import M from "materialize-css";
-
+//
 // export class Header extends Component {
-
+//
 //     componentDidMount() {
 //         // Auto initialize all the things!
 //         M.AutoInit();
@@ -16,7 +16,7 @@
 //               <div class="nav-wrapper deep-purple darken-2">
 //                 <a href="#" class="brand-logo">BestForME Logo</a>
 //                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-//                   <li><a href="/registration">(temp) Registration</a></li>
+//
 //                   <li><a href="/">(temp) Login</a></li>
 //                   <li><a href="/dashboard">Home</a></li>
 //                   <li><a href="/favorites">Favorites</a></li>
@@ -24,7 +24,7 @@
 //                 </ul>
 //               </div>
 //             </nav>
-//           </div>    
+//           </div>
 //         );
 //     }
 // }

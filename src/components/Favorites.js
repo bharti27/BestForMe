@@ -1,40 +1,28 @@
 import React, { Component } from 'react';
-import M from "materialize-css";
 import Cards from "./Cards";
-import loginDetails from '../usersDetails'
+import { connect } from "react-redux";
 
-export class Favorites extends Component {
+class Favorites extends Component {
   constructor( props ) {
     super(props);
-    this.state = { 
-      //authenticatedUser: props.authenticatedUser,
-      authenticatedUser: "mamoke88",
-      favorites: []
+    this.state  = {
+
     };
   }
     componentDidMount() {
-        // Auto initialize all the things!
-        M.AutoInit();
     }
 
     componentWillMount() {
-      var favorites = JSON.parse(JSON.stringify(loginDetails));
-      // if (this.props.authenticatedUser && favorites.loginDetails.users[this.props.authenticatedUser] !== null){
-        this.state.favorites = favorites.loginDetails.users[this.state.authenticatedUser].favorites;
-      // } else {
-      //   window.location.href = '/';
-      // }
     }
 
     render() {
       let resultsDisplay;
-
-        if (this.state.favorites == null || this.state.favorites == undefined){
+        if (this.props.authUser.favorites == null || this.props.authUser.favorites === undefined){
           resultsDisplay = <p>You don't have any favorites</p>
           
         } else {
           resultsDisplay =  <div className = "row" >
-                              {this.state.favorites.map((value, index) => {
+                              {this.props.authUser.favorites.map((value, index) => {
                                 return <Cards data={value} key={value.yID}/>;
                               })}
                             </div>
@@ -48,4 +36,8 @@ export class Favorites extends Component {
       );
     }
 }
-export default Favorites;
+
+const mapStateToProps = state => {
+    return { authUser: state.simpleReducer.authUser };
+};
+export default connect(mapStateToProps, null)(Favorites);
