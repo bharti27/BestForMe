@@ -17,7 +17,7 @@ const loginDetails = {
       "lastName": "",
       "age": "24",
       "interest": [ "romance", "drama", "" ],
-      "preferredMediaType": [ "books", "movies" ],
+      "preferredMediaType": [ "book", "movie" ],
       "primaryColor": "",
       "secondaryColor": "",
       "favorites" : [{
