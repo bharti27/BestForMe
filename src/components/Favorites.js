@@ -13,12 +13,6 @@ class Favorites extends Component {
     }
 
     componentWillMount() {
-      var favorites = JSON.parse(JSON.stringify(loginDetails));
-      if (this.props.authenticatedUser !== null && favorites.loginDetails.users[this.props.authenticatedUser] !== null){
-        this.state.favorites = favorites.loginDetails.users[this.props.authenticatedUser].favorites;
-      } else {
-       // window.location.href = '/';
-      }
     }
 
     render() {
