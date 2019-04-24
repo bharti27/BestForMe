@@ -14,8 +14,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Favorite from '@material-ui/icons/Favorite';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Home from '@material-ui/icons/Home';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const styles = theme => ({
   root: {
@@ -109,7 +109,7 @@ class NavBar extends React.Component {
   handleMobileMenuClose = () => {
     this.setState({ mobileMoreAnchorEl: null });
   };
-  
+
   navToHome = event =>{
     window.location.href = '/';
     if(this.state.anchorEl !== null){
@@ -151,7 +151,7 @@ class NavBar extends React.Component {
     }
   }
 
-  
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
@@ -172,7 +172,7 @@ class NavBar extends React.Component {
           <p>Profile</p>
         </MenuItem>
         <MenuItem onClick={this.logout}>
-          <FontAwesomeIcon icon={faSignOutAlt}/>
+
           <p>Logout</p>
         </MenuItem>
       </Menu>
@@ -209,7 +209,7 @@ class NavBar extends React.Component {
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               BestForMe
             </Typography>
-            
+
             <div className={classes.grow} />
             {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -236,8 +236,8 @@ class NavBar extends React.Component {
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" 
-              onClick={this.handleMobileMenuOpen} 
+              <IconButton aria-haspopup="true"
+              onClick={this.handleMobileMenuOpen}
               color="inherit">
                 <MoreIcon />
               </IconButton>

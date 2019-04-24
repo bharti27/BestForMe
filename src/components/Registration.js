@@ -9,6 +9,7 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
+import ColorPicker from 'material-ui-color-picker'
 
 
 function basicInfo(){
@@ -24,7 +25,7 @@ function basicInfo(){
       </label>
       <label>
         Age:
-        <input type="text" name="age" />
+        <input type="number" name="age" />
       </label>
       <label>
         Password:
@@ -35,10 +36,22 @@ function basicInfo(){
 }
 
 function mediaTypes(){
-//  return(
-    //check box for movies/books/music .. whatever the API has
-  //)
-}
+  // return(
+  //   <form>
+  //       <label>
+  //         Music
+  //         <input
+  //           name="Music"
+  //           type="checkbox"
+  //
+  //           onClick={this.handleClick}
+  //            />
+  //       </label>
+  //       </form>
+  // )
+
+  }
+
 
 function genre(){
   //return(
@@ -52,29 +65,63 @@ function interests(){
   //)
 }
 
+function color(){
+  return(
+    <ColorPicker
+    name='color'
+    defaultValue='#000'
+    // value={this.state.color} - for controlled component
+    onChange={color => console.log(color)}
+
+  />
+  )
+
+}
+
 function getSteps() {
-  return ['Basic Information', 'Media Types', 'Genre', 'Interests'];
+  return ['Basic Information', 'Media Types', 'Genre', 'Interests', 'Color'];
 }
 
 function getStepContent(step) {
   switch (step) {
-    case 0:
+   case 0:
       return basicInfo();
-    case 1:
+   case 1:
       return mediaTypes();
    case 2:
       return genre();
    case 3:
       return interests();
-    default:
-      return 'unknown step';
+   case 4:
+     return color();
+  default:
+    return 'unknown step';
   }
 }
 
 export class Registration extends Component {
-  state = {
-      activeStep: 0,
-    };
+  constructor( props ) {
+      super( props );
+      this.state = {
+        activeStep: 0,
+        firstName: '',
+        lastName: '',
+        password: '',
+        age: '',
+        interestList: [],
+        mediaType: [],
+        primaryColor: '',
+        secondaryColor: ''
+      };
+
+  }
+
+   // handleClick = () => {
+   //    //this.setState({state.interestList: [Music]});
+   //    this.setState(state => ({
+   //      interestList: state.interestList[0] = [music],
+   //    }));
+   // };
 
     handleNext = () => {
       this.setState(state => ({
