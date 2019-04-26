@@ -14,17 +14,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Favorite from '@material-ui/icons/Favorite';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Home from '@material-ui/icons/Home';
-<<<<<<< HEAD
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
-=======
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import {
     Link
 } from "react-router-dom";
->>>>>>> e01c6129f09375c86c61c0ad372ea34aa0c8e95a
 const styles = theme => ({
   root: {
     width: '100%',
@@ -180,7 +174,7 @@ class NavBar extends React.Component {
           <p>Profile</p>
         </MenuItem>
         <MenuItem onClick={this.logout}>
-
+          <FontAwesomeIcon icon={faSignOutAlt}/>
           <p>Logout</p>
         </MenuItem>
       </Menu>
@@ -216,6 +210,10 @@ class NavBar extends React.Component {
       </Menu>
     );
 
+    // const renderLoggedInNav  = (
+
+    // );
+
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -223,45 +221,46 @@ class NavBar extends React.Component {
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               BestForMe
             </Typography>
-
-            <div className={classes.grow} />
-            {/* <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+            
+              <div className={classes.grow} />
+              {/* <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  fullWidth="true"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
+              </div> */}
+              <div className={classes.sectionDesktop}>
+                  <Link to="/dashboard">
+                    <IconButton color="inherit" >
+                        <Home/>
+                    </IconButton>
+                  </Link>
+                  <Link to="/favorites">
+                    <IconButton color="inherit" >
+                        <Favorite />
+                    </IconButton>
+                  </Link>
+                  <div className={classes.Link} onClick={this.handleProfileMenuOpen} >
+                    <IconButton color="inherit" >
+                      <AccountCircle />
+                    </IconButton>
+                  </div>
               </div>
-              <InputBase
-                placeholder="Search…"
-                fullWidth="true"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div> */}
-            <div className={classes.sectionDesktop}>
-                <Link to="/dashboard">
-              <IconButton color="inherit" >
-                  <Home/>
-              </IconButton>
-                </Link>
-                <Link to="/favorites">
-              <IconButton color="inherit" >
-                  <Favorite />
-              </IconButton>
-                </Link>
-                <Link to="/accounts">
-              <IconButton color="inherit" >
-                <AccountCircle />
-              </IconButton>
-                </Link>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true"
-              onClick={this.handleMobileMenuOpen}
-              color="inherit">
-                <MoreIcon />
-              </IconButton>
-            </div>
+              <div className={classes.sectionMobile}>
+                <IconButton aria-haspopup="true"
+                  onClick={this.handleMobileMenuOpen}
+                  color="inherit">
+                  <MoreIcon />
+                </IconButton>
+              </div>
+            
           </Toolbar>
         </AppBar>
         {renderMenu}
