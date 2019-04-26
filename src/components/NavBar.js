@@ -16,9 +16,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Home from '@material-ui/icons/Home';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import {
-    Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 const styles = theme => ({
   root: {
     width: '100%',
@@ -210,63 +209,96 @@ class NavBar extends React.Component {
       </Menu>
     );
 
-    // const renderLoggedInNav  = (
+    // Toolbar for when there is an autheticated user
+    const renderAuthNav = (
+      <Toolbar>
+        <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+          BestForMe
+        </Typography>
+        
+          <div className={classes.grow} />
+          {/* <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              fullWidth="true"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+            />
+          </div> */}
+          <div className={classes.sectionDesktop}>
+              <Link to="/dashboard">
+                <IconButton color="inherit" >
+                    <Home/>
+                </IconButton>
+              </Link>
+              <Link to="/favorites">
+                <IconButton color="inherit" >
+                    <Favorite />
+                </IconButton>
+              </Link>
+              <div className={classes.Link} onClick={this.handleProfileMenuOpen} >
+                <IconButton color="inherit" >
+                  <AccountCircle />
+                </IconButton>
+              </div>
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton aria-haspopup="true"
+              onClick={this.handleMobileMenuOpen}
+              color="inherit">
+              <MoreIcon />
+            </IconButton>
+          </div>
+        
+      </Toolbar>
+    );
 
-    // );
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
+    // Toolbar for when there is no authenticated user
+    const renderNoAuthNav = (
+      <Toolbar>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               BestForMe
             </Typography>
             
               <div className={classes.grow} />
-              {/* <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <InputBase
-                  placeholder="Search…"
-                  fullWidth="true"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                />
-              </div> */}
-              <div className={classes.sectionDesktop}>
-                  <Link to="/dashboard">
-                    <IconButton color="inherit" >
-                        <Home/>
-                    </IconButton>
-                  </Link>
-                  <Link to="/favorites">
-                    <IconButton color="inherit" >
-                        <Favorite />
-                    </IconButton>
-                  </Link>
-                  <div className={classes.Link} onClick={this.handleProfileMenuOpen} >
-                    <IconButton color="inherit" >
-                      <AccountCircle />
-                    </IconButton>
-                  </div>
-              </div>
-              <div className={classes.sectionMobile}>
-                <IconButton aria-haspopup="true"
-                  onClick={this.handleMobileMenuOpen}
-                  color="inherit">
-                  <MoreIcon />
-                </IconButton>
-              </div>
+              <p>[Register]</p>
             
           </Toolbar>
+    );
+    
+    
+    let nav;
+    alert("authUser=    " + JSON.stringify(this.props.authUser) + "\nthis.props.authUser == {}    " 
+    + JSON.stringify(JSON.stringify(this.props.authUser)  == {}) + "\nthis.props.authUser === {}    " 
+    + JSON.stringify(JSON.stringify(this.props.authUser) === {}));
+    
+
+    if (JSON.stringify(this.props.authUser) != "{}" || this.props.authUser == null || this.props.authUser == undefined){
+      alert("renderNoAuthNav");
+      
+      nav = renderNoAuthNav;
+    } else {
+      alert("renderAuthNav");
+      nav = renderAuthNav;
+    }
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          {nav}
+
         </AppBar>
         {renderMenu}
         {renderMobileMenu}
       </div>
     );
+    
+    
   }
 }
 
@@ -274,4 +306,9 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavBar);
+const mapStateToProps = state => {
+  return { authUser: state.simpleReducer.authUser };
+};
+
+export default connect(mapStateToProps, null)(withStyles(styles)(NavBar));
+// export default withStyles(styles)(NavBar);

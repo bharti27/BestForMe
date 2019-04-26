@@ -17,7 +17,7 @@ class Favorites extends Component {
 
     render() {
       let resultsDisplay;
-        if (this.props.authUser.favorites == null || this.props.authUser.favorites === undefined){
+        if (JSON.stringify(this.props.authUser.favorites) === "{}" || this.props.authUser.favorites === null || this.props.authUser.favorites === undefined){
           resultsDisplay = <p>You don't have any favorites</p>
           
         } else {
