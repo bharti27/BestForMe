@@ -6,7 +6,7 @@ import {addCardToFav} from "../actions";
 import { connect } from "react-redux";
 
 
-export class Cards extends Component {
+export class BookCards extends Component {
 
     constructor( props ) {
         super( props );
@@ -16,13 +16,12 @@ export class Cards extends Component {
         this.state = { heart: this.isLiked(), modalOpen: false };
     }
     isLiked(  ) {
-        var result = "far";
-         this.props.store.favorites.map( (value, index) => {
-            if ( value.title === this.props.data.title ) {
-                result = "fa";
-            }
-        } );
-        return result;
+        // this.props.store.favorites.map( (value, index) => {
+        //         //     if ( value.Name === this.props.data.Name ) {
+        //         //         return "fa";
+        //         //     }
+        //         // } );
+        return "far";
     }
     componentDidMount() {
     }
@@ -39,25 +38,21 @@ export class Cards extends Component {
                 heart: "far"
             } );
         }
-        M.toast({html: 'You have liked '+this.props.data.title + ' .' } );
+        M.toast({html: 'You have liked '+this.props.data.Name + ' .' } );
         this.props.cardLiked( this.props.data );
 
     }
     render() {
 
         return (
-                <div className="col s4 item ">
-                    <div className="card hoverable" onClick={ this.cardClicked }>
-                        <div className="card-image">
-                            {/*<img src={"http://img.youtube.com/vi/"+this.props.data.yID + "/mqdefault.jpg"}/>*/}
-                            <img src={"https://image.tmdb.org/t/p/original"+this.props.data.backdrop_path }/>
-                                <div className="btn-floating halfway-fab waves-effect waves-light pink lighten-1" onClick={ this.likedCard }>
-                                    <i className={ this.state.heart + " fa-heart" }/>
-                                </div>
+            <div className="col s4 item">
+                    <div className="card hoverable">
+                        <div className="card-content ">
+                            <span className="card-title">{ this.props.data.Name }</span>
+                            <p>{ this.props.data.wTeaser.length > 250 ? this.props.data.wTeaser.substring( 0, 250 ) + "..." : this.props.data.wTeaser }</p>
                         </div>
-                        <div className="card-content">
-                            <span className="card-title">{ this.props.data.title }</span>
-                            <p>{ this.props.data.overview.substring( 0, 100 ) + "..." }</p>
+                        <div className="card-action">
+                            <a href={ this.props.data.wUrl } target= "_blank">Explore More about it!</a>
                         </div>
                     </div>
                 </div>
@@ -78,4 +73,4 @@ function mapDispatchToProps(dispatch) {
         cardLiked: payload => dispatch( addCardToFav(payload))
     };
 }
-export default connect( mapStateToProps, mapDispatchToProps )(Cards);
+export default connect( mapStateToProps, mapDispatchToProps )(BookCards);

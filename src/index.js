@@ -17,7 +17,7 @@ const history = require("history").createBrowserHistory();
 const store = createStore( rootReducer, {}, applyMiddleware(thunk) );
 
 ReactDOM.render(
-    <Provider store={ store }>
+    <Provider store={ store } history = { history }>
         <APP />
     </Provider>,
     document.getElementById('root')

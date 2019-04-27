@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Cards from "./Cards";
+import Cards from "../MediaCard";
 import { connect } from "react-redux";
+import NavBar from "./NavBar";
+import $ from "jquery";
 
 class Favorites extends Component {
   constructor( props ) {
@@ -10,6 +12,14 @@ class Favorites extends Component {
     };
   }
     componentDidMount() {
+        $( 'body' ).css( {
+            background: this.props.authUser.primaryColor,
+            color: this.props.authUser.secondaryColor
+        } );
+        $( 'nav' ).css( {
+            background: this.props.authUser.secondaryColor,
+            color: this.props.authUser.primaryColor
+        } )
     }
 
     componentWillMount() {
@@ -30,6 +40,7 @@ class Favorites extends Component {
 
       return (
           <div>
+              <NavBar />
             <h1>Favorites Page</h1>
             {resultsDisplay}
           </div>
