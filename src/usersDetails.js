@@ -12,7 +12,7 @@ const loginDetails = {
         "favorites": []
     },
     "mamoke88": {
-      "password": "helloWorld",
+      "password": "h",
       "firstName": "mamoke",
       "lastName": "",
       "age": "24",

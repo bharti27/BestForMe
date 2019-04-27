@@ -273,12 +273,12 @@ class NavBar extends React.Component {
     
     
     let nav;
-    alert("authUser=    " + JSON.stringify(this.props.authUser) + "\nthis.props.authUser == {}    " 
-    + JSON.stringify(JSON.stringify(this.props.authUser)  == {}) + "\nthis.props.authUser === {}    " 
-    + JSON.stringify(JSON.stringify(this.props.authUser) === {}));
+    // alert("authUser=    " + JSON.stringify(this.props.authUser) + "\nthis.props.authUser == {}    " 
+    // + JSON.stringify(JSON.stringify(this.props.authUser)  === {}) + "\nthis.props.authUser === {}    " 
+    // + JSON.stringify(JSON.stringify(this.props.authUser) === {}));
     
 
-    if (JSON.stringify(this.props.authUser) != "{}" || this.props.authUser == null || this.props.authUser == undefined){
+    if (JSON.stringify(this.props.authUser) !== "{}" || this.props.authUser === null || this.props.authUser === undefined){
       alert("renderNoAuthNav");
       
       nav = renderNoAuthNav;
