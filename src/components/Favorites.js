@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Cards from "../MediaCard";
+import MediaCards from "../MediaCard";
+import Cards from "./Cards";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import $ from "jquery";
@@ -7,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-var _ = require('underscore')
+var _ = require('underscore');
 
 
 const styles = theme => ({
@@ -66,26 +67,26 @@ class Favorites extends Component {
           this.setState({ favorites: _.sortBy(this.props.authUser.favorites, by)})
         }
       }
-    }
+    };
 
     handleSort = name => event => {
       // Using temp local vars because setState() is async
-      var tempDir = this.state.sortDirection
-      var tempBy  = this.state.sortBy
+      var tempDir = this.state.sortDirection;
+      var tempBy  = this.state.sortBy;
 
       if (name ===  "sortDirection") {
-        tempDir = event.target.value
+        tempDir = event.target.value;
         this.setState({ sortDirection: tempDir});
       }
 
       if (name === "sortBy") {
-        tempBy = event.target.value
+        tempBy = event.target.value;
         this.setState({ sortBy: tempBy});
       }
 
       this.sortFavorites(tempBy, tempDir)
 
-    }
+    };
 
     render() {
       const { classes } = this.props;
@@ -133,28 +134,30 @@ class Favorites extends Component {
       if (JSON.stringify(this.state.favorites)  === "{}" || this.state.favorites  === null || this.state.favorites === undefined){
         resultsDisplay = <p>You don't have any favorites</p>
       } else {
-        resultsDisplay =  <div className= "container" >
-                            <div className="row">
+        resultsDisplay =  <div className= "favorites" >
 
-                            </div>
                             <div className= "row">
                               {this.state.favorites .map((value, index) => {
-                                return <Cards data={value} key={value.yID}/>;
+                                  if ( value.title === undefined ) {
+                                      return <MediaCards data={value} key={value.yID}/>;
+                                  } else {
+                                      return <Cards data={value} key={value.id}/>;
+                                  }
+
                               })}
                             </div>
                           </div>
       }
 
       return (
-          <div>
-              <NavBar />
-            <h1>Favorites Page</h1>
           <div className={classes.root}>
-            <div className="row"><h1>Favorites Page</h1></div>
-            {sortBySelector}
-            {sortDirectionSelector}
-
+              <NavBar />
+            <div className="row">
+                <h1>Favorites Page</h1>
+                {sortBySelector}
+                {sortDirectionSelector}
             {resultsDisplay}
+          </div>
           </div>
       );
     }

@@ -46,7 +46,7 @@ export class DashBoard extends Component {
         } );
     }
     onSuccess( response ) {
-        this.setState( {media: response.results}, this.getTrending );
+        this.setState( {media: response.results}, this.initCarousel );
     }
     componentWillMount() {
         const callbackMethod = response  => {
@@ -57,15 +57,15 @@ export class DashBoard extends Component {
     }
     getMovieList() {
         APP.getMovieListWithGeners( this.onSuccess, {
-        with_genres: this.props.authUser.geners.join(",")
+        with_genres: this.props.authUser.genres.join(",")
         } );
     }
     getTrending() {
         const success = response  => {
-            this.setState( {trending: response.results}, this.initCarousel );
+            this.setState( {trending: response.results}  );
         };
         APP.getTrending( success, {
-            with_genres: this.props.authUser.geners.join(",")
+            with_genres: this.props.authUser.genres.join(",")
         } );
     }
 
@@ -98,7 +98,7 @@ export class DashBoard extends Component {
                     onClose={ this.handleClose }
                 />
                 <div className="">
-                    <Trending data = { this.state.trending } callback = { this.openModal }/>
+                    <Trending callback = { this.openModal }/>
                     { this.props.authUser.preferredMediaType.map( ( value, index ) => {
                         if ( value === "movie" ) {
                             return (<div>
@@ -163,7 +163,7 @@ export class DashBoard extends Component {
     renderMovies2(){
         return this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "movie"  ) {
-                return <MediaCards data={props} key={props.id} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
             }
         });
     }
@@ -171,14 +171,14 @@ export class DashBoard extends Component {
     renderBooks() {
         return this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "book"  ) {
-                return <BookCards data={props} key={props.id} callBack={this.openModal}/>;
+                return <BookCards data={props} key={props.yID} callBack={this.openModal}/>;
             }
         });
     }
     renderMusic() {
         return this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "music"  ) {
-                return <BookCards data={props} key={props.id} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
             }
 
         });
@@ -193,7 +193,7 @@ export class DashBoard extends Component {
     renderTvseries() {
         return this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "show"  ) {
-                return <MediaCards data={props} key={props.id} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
             }
         });
     }

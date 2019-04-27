@@ -78,6 +78,9 @@ h1{
     height: 450px;
     display: block;
 }
+.favorites {
+    padding: 40px;
+}
 
 @keyframes modal-video {
     from {

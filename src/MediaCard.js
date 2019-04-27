@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as M from "materialize-css";
-import {addCardToFav} from "./actions";
+import {addCardToFav, removeCardFromFav} from "./actions";
 import { connect } from "react-redux";
 
 
@@ -32,19 +32,21 @@ class MediaCards extends Component {
             this.setState( {
                 heart: "fa"
             } );
+            M.toast({html: 'You have liked '+this.props.data.Name + ' .' } );
+            this.props.cardLiked( this.props.data );
         } else {
             this.setState( {
                 heart: "far"
             } );
+            M.toast({html: 'You have disliked '+this.props.data.Name + ' .' } );
+            this.props.cardDisLiked(  this.props.data  );
         }
-        M.toast({html: 'You have liked '+this.props.data.Name + ' .' } );
-        this.props.cardLiked( this.props.data );
 
     }
     render() {
 
         return (
-            <div className="col s4 item ">
+            <div className="col item ">
                 <div className="card hoverable" onClick={ this.cardClicked }>
                     <div className="card-image">
                         <img src={"http://img.youtube.com/vi/"+this.props.data.yID + "/mqdefault.jpg"}/>
@@ -73,7 +75,8 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
     return {
-        cardLiked: payload => dispatch( addCardToFav(payload))
+        cardLiked: payload => dispatch( addCardToFav(payload)),
+        cardDisLiked: payload => dispatch( removeCardFromFav(payload))
     };
 }
 export default connect( mapStateToProps, mapDispatchToProps )(MediaCards);
