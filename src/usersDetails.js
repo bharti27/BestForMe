@@ -18,7 +18,7 @@ const loginDetails = {
         "with_original_language": "hi"
     },
     "mamoke88": {
-      "password": "helloWorld",
+      "password": "h",
         "username": "mamoke88",
       "firstName": "mamoke",
       "lastName": "",
