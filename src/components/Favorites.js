@@ -50,10 +50,10 @@ class Favorites extends Component {
         }
       } else {
         if (dir === "d"){
-          this.setState({ favorites: _.sortBy(this.props.authUser.favorites, by).reverse()})
+          this.setState({ favorites: _.sortBy(this.state.favorites, by).reverse()})
         } else {
           // a is default, if dir is a or anything else, sort ascending
-          this.setState({ favorites: _.sortBy(this.props.authUser.favorites, by)})
+          this.setState({ favorites: _.sortBy(this.state.favorites, by)})
         }
       }
     }
