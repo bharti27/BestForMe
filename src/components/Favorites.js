@@ -8,12 +8,14 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import _ from 'lodash';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    flexGrow: 1
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -21,6 +23,22 @@ const styles = theme => ({
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
+  },
+  favTitle: {
+    marginLeft: theme.spacing.unit * 2
+  },
+  results: {
+    marginLeft: theme.spacing.unit * -1.5,
+    marginRight: theme.spacing.unit * -1.5
+  },
+  favoritesHeader: {
+    margin: theme.spacing.unit * 4
+  },
+  sectionHeader: {
+    display: 'flex',
+  },
+  grow: {
+    flexGrow: 1,
   },
 });
 
@@ -92,7 +110,7 @@ class Favorites extends Component {
       let resultsDisplay;
       // Dropdown to select what to sort by
       const sortBySelector = (
-        <div className="row">
+        <div className="">
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-native-simple">Sort By</InputLabel>
             <Select
@@ -112,7 +130,7 @@ class Favorites extends Component {
         </div>);
 
       const sortDirectionSelector = (
-        <div className="row">
+        <div className="">
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-native-simple">Sort Direction</InputLabel>
             <Select
@@ -133,9 +151,9 @@ class Favorites extends Component {
       if (JSON.stringify(this.state.favorites)  === "{}" || this.state.favorites  === null || this.state.favorites === undefined){
         resultsDisplay = <p>You don't have any favorites</p>
       } else {
-        resultsDisplay =  <div className= "favorites" >
-
-                            <div className= "row">
+        resultsDisplay =  <div className={classes.results}>
+                            <div className="row"/>
+                            <div className= "row ">
                               {this.state.favorites .map((value, index) => {
                                   if ( value.title === undefined ) {
                                       return <MediaCards data={value} key={value.yID}/>;
@@ -149,15 +167,21 @@ class Favorites extends Component {
       }
 
       return (
-          <div className={classes.root}>
-              <NavBar />
-            <div className="row">
-                <h1>Favorites Page</h1>
+        <div className={[classes.root, classes.favoritesHeader].join(" ")}>
+          <AppBar position="static" color="default">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                Favorites
+              </Typography>
+              <div className={classes.grow} />
+              <div className={classes.sectionHeader}>
                 {sortBySelector}
                 {sortDirectionSelector}
-            {resultsDisplay}
-          </div>
-          </div>
+              </div>
+            </Toolbar>
+          </AppBar>
+          {resultsDisplay}
+        </div>
       );
     }
 }
