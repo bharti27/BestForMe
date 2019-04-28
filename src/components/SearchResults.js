@@ -50,6 +50,14 @@ class SearchResults extends Component {
         super(props);
         this.state  = {
             query: "",
+            searchOutput: {
+                Similar:{
+                    Info: [],
+                    Results:[]}
+                },
+            infoOutput: [],
+            resultsOutput: [],
+
             Info: [],
             Results:[],
             sortBy: "Added",
@@ -74,10 +82,14 @@ class SearchResults extends Component {
     }
 
     componentWillReceiveProps() {
-        this.retrieveData();
+        if(this.props.match.params.query !== this.state.query){
+            this.retrieveData();
+        }
     }
 
     retrieveData()  {
+        this.setState({ query: this.props.match.params.query });
+        const callbackMethod = response  => {
         const values = queryString.parse(this.props.history.location.search);
         var _self = this;
         let callbackMethod = response  => {
@@ -87,6 +99,10 @@ class SearchResults extends Component {
                 } );
             };
             if (response !== undefined && response !== null){
+                this.setState( {searchOutput: response,
+                                infoOutput: response.Similar.Info,
+                                resultsOutput: response.Similar.Results});
+
                 _self.setState( {
                     Results: [],
                     query: values.filter
@@ -98,24 +114,133 @@ class SearchResults extends Component {
     }
 
     
+    sortResults = (by, dir) =>{
+        if (dir === "d"){
+            this.setState({ resultsOutput: _.sortBy(this.state.searchOutput.Similar.Results, by).reverse()})
+        } else {
+        // a is default, if dir is a or anything else, sort ascending
+            this.setState({ resultsOutput: _.sortBy(this.state.searchOutput.Similar.Results, by)})
+        }
+    };
+
+    handleSort = name => event => {
+        // Using temp local vars because setState() is async
+        var tempDir = this.state.sortDirection;
+        var tempBy  = this.state.sortBy;
+
+        if (name ===  "sortDirection") {
+          tempDir = event.target.value;
+          this.setState({ sortDirection: tempDir});
+        }
+
+        if (name === "sortBy") {
+          tempBy = event.target.value;
+          this.setState({ sortBy: tempBy});
+        }
+        this.sortResults(tempBy, tempDir)
+      };
+
+
     render() {
         const { classes } = this.props;
-        
+
+        // Dropdown to select what to sort by
+      const sortBySelector = (
+        <div className="">
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="age-native-simple">Sort By</InputLabel>
+            <Select
+              native
+              value={this.state.sortBy}
+              onChange={this.handleSort('sortBy')}
+              inputProps={{
+                name: 'sortBy',
+                id: 'sort-by-selector',
+              }}
+            >
+              <option value={"Name"}>Name</option>
+              <option value={"Type"}>Type</option>
+            </Select>
+          </FormControl>
+        </div>);
+
+      // Dropdown to select sort direction
+      const sortDirectionSelector = (
+        <div className="">
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="age-native-simple">Sort Direction</InputLabel>
+            <Select
+              native
+              value={this.state.sortDirection}
+              onChange={this.handleSort('sortDirection')}
+              inputProps={{
+                name: 'sortDirection',
+                id: 'sort-dir-selector',
+              }}>
+              <option value={"a"}>Ascending</option>
+              <option value={"d"}>Decsending</option>
+            </Select>
+          </FormControl>
+        </div>);
+
+        const resultsDisplay = (
+            <div className="">
+                <div className="row"/>
+                <div className= "row ">
+                    {this.state.resultsOutput.map((value, index) => {
+                        if ( value.title === undefined ) {
+                            return <MediaCards data={value} key={value.yID}/>;
+                        } else {
+                            return <Cards data={value} key={value.id}/>;
+                        }
+
+                    })}
+                </div>
+            </div>
+        );
+
+        const infoDisplay = (
+            <div className="">
+                <div className="row"/>
+                <div className= "row ">
+                    {this.state.infoOutput.map((value, index) => {
+                        if ( value.title === undefined ) {
+                            return <MediaCards data={value} key={value.yID}/>;
+                        } else {
+                            return <Cards data={value} key={value.id}/>;
+                        }
+
+                    })}
+                </div>
+            </div>
+        );
         // let resultsDisplay = (
         //
         // );
 
+
+
         return (
             <div>
                 <NavBar />
-                <div className={[classes.root, classes.favoritesHeader].join(" ")}> 
+                <div className={[classes.root, classes.favoritesHeader].join(" ")}>
+                <AppBar position="static" color="default">
+                    <Toolbar>
+                        <Typography variant="h6" color="inherit">
+                        Search Result
+                        </Typography>
+                    </Toolbar>
+                    </AppBar>
+                    {infoDisplay}
                     <AppBar position="static" color="default">
                     <Toolbar>
                         <Typography variant="h6" color="inherit">
-                        Search Results
+                        Similar Media
                         </Typography>
                         <div className={classes.grow} />
                         <div className={classes.sectionHeader}>
+                            {sortBySelector}
+                            {sortDirectionSelector}
                         </div>
                     </Toolbar>
                     </AppBar>
