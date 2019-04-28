@@ -26,7 +26,7 @@ class APP extends Component {
                 <PrivateRoute path="/dashboard" component={ DashBoard} auth = { this.props.authUser }/>
                 <Route path="/registration" component={Registration} auth = { this.props.authUser }/>
                 <PrivateRoute path="/favorites" component={Favorites} auth = { this.props.authUser } />
-                <PrivateRoute path="/search/:query" component={SearchResults} auth = { this.props.authUser } />
+                <PrivateRoute path="/search" component={SearchResults} auth = { this.props.authUser } />
             </div>
         </Router> );
     }

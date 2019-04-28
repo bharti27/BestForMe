@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import $ from "jquery";
+import searchResults from './SearchResults';
+import * as ReactDOM from "react-dom";
 class NavBar extends Component{
     constructor( props ) {
         super( props );
@@ -21,7 +23,8 @@ class NavBar extends Component{
       event.preventDefault();
       event.stopPropagation();
       if (this.state.query !== undefined  && this.state.query !== "" ) {
-        this.props.history.push('/search/' + this.state.query );
+         // ReactDOM.unmountComponentAtNode( searchResults );
+        this.props.history.push('/search?filter=' + this.state.query );
       }
     }
 
@@ -40,15 +43,18 @@ class NavBar extends Component{
                 </div>
             <ul className="right hide-on-med-and-down">
                 <li><Link to = "/dashboard">
-                    <i className=" waves-effect waves-light right-align clearfix small material-icons">home</i>
+                    <i className="waves-effect waves-light right-align clearfix small material-icons icons">refresh</i>
+                </Link></li>
+                <li><Link to = "/dashboard">
+                    <i className=" waves-effect waves-light right-align clearfix small material-icons icons">home</i>
                 </Link></li>
                 <li><Link to = "/favorites">
-                    <i className=" waves-effect waves-light right-align clearfix small material-icons">favorite</i>
+                    <i className=" waves-effect waves-light right-align clearfix small material-icons icons">favorite</i>
                 </Link></li>
 
                 <li>
                     <Link to="/login">
-                        <i  className=" waves-effect waves-light right-align clearfix small material-icons">power_settings_new</i>
+                        <i  className=" waves-effect waves-light right-align clearfix small material-icons icons">power_settings_new</i>
                     </Link>
                 </li>
             </ul>

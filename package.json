@@ -17,6 +17,7 @@
     "materialize-css": "^1.0.0-rc.2",
     "owl.carousel": "^2.3.4",
     "package.json": "^2.0.1",
+    "query-string": "^6.5.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-history": "^0.18.2",

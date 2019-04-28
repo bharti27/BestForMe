@@ -5,6 +5,7 @@ import Cards from "./Cards";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import $ from "jquery";
+import queryString from 'query-string';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -49,11 +50,8 @@ class SearchResults extends Component {
         super(props);
         this.state  = {
             query: "",
-            searchOutput: {
-                Similar:{
-                    Info: [],
-                    Results:[]}
-                },
+            Info: [],
+            Results:[],
             sortBy: "Added",
             sortDirection: "a" // a -> ascending, d -> descending
         };
@@ -69,6 +67,8 @@ class SearchResults extends Component {
             color: this.props.authUser.primaryColor
         } )
     }
+    componentWillUnmount() {
+    }
     componentWillMount() {
         this.retrieveData();
     }
@@ -78,34 +78,32 @@ class SearchResults extends Component {
     }
 
     retrieveData()  {
-        this.setState({ query: this.props.match.params.query }) ;
-        const callbackMethod = response  => {
+        const values = queryString.parse(this.props.history.location.search);
+        var _self = this;
+        let callbackMethod = response  => {
+            let nowUpdate = ()  => {
+                _self.setState( {
+                    Results: response.Similar.Results
+                } );
+            };
             if (response !== undefined && response !== null){
-                this.setState( {searchOutput: response});
+                _self.setState( {
+                    Results: [],
+                    query: values.filter
+                }, nowUpdate );
             }
+
         };
-        APP.getResultsFromTasteDive( { q: this.props.match.params.query, info: 1 }, callbackMethod  );
+        APP.getResultsFromTasteDive( { q: values.filter, info: 1 }, callbackMethod  );
     }
 
     
     render() {
         const { classes } = this.props;
         
-        const resultsDisplay = (
-            <div className="">
-                <div className="row"/>
-                <div className= "row ">
-                    {this.state.searchOutput.Similar.Results.map((value, index) => {
-                        if ( value.title === undefined ) {
-                            return <MediaCards data={value} key={value.yID}/>;
-                        } else {
-                            return <Cards data={value} key={value.id}/>;
-                        }
-
-                    })}
-                </div>
-            </div>
-        );
+        // let resultsDisplay = (
+        //
+        // );
 
         return (
             <div>
@@ -121,7 +119,19 @@ class SearchResults extends Component {
                         </div>
                     </Toolbar>
                     </AppBar>
-                    {resultsDisplay}
+                    <div className="">
+                        <div className="row"/>
+                        <div className= "row ">
+                            {this.state.Results.map((value, index) => {
+                                if ( value.title === undefined ) {
+                                    return <MediaCards data={value} key={value.yID}/>;
+                                } else {
+                                    return <Cards data={value} key={value.id}/>;
+                                }
+
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
         

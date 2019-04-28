@@ -310,3 +310,7 @@ h1{
     bottom: inherit !important;
     top: -16px !important;
 }
+.icons{
+    height: 80px !important;
+    line-height: 80px !important;
+}
