@@ -181,14 +181,40 @@ class SearchResults extends Component {
             </div>
         );
 
+        const infoDisplay = (
+            <div className="">
+                <div className="row"/>
+                <div className= "row ">
+                    {this.state.infoOutput.map((value, index) => {
+                        if ( value.title === undefined ) {
+                            return <MediaCards data={value} key={value.yID}/>;
+                        } else {
+                            return <Cards data={value} key={value.id}/>;
+                        }
+
+                    })}
+                </div>
+            </div>
+        );
+
+       
+
         return (
             <div>
                 <NavBar />
-                <div className={[classes.root, classes.favoritesHeader].join(" ")}> 
+                <div className={[classes.root, classes.favoritesHeader].join(" ")}>
+                <AppBar position="static" color="default">
+                    <Toolbar>
+                        <Typography variant="h6" color="inherit">
+                        Search Result
+                        </Typography>
+                    </Toolbar>
+                    </AppBar>
+                    {infoDisplay}
                     <AppBar position="static" color="default">
                     <Toolbar>
                         <Typography variant="h6" color="inherit">
-                        Search Results
+                        Similar Media
                         </Typography>
                         <div className={classes.grow} />
                         <div className={classes.sectionHeader}>
