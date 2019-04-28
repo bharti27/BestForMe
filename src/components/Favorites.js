@@ -5,9 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import { Grid } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
-import Paper from '@material-ui/core/Paper';
 var _ = require('underscore')
 
 
@@ -24,7 +25,20 @@ const styles = theme => ({
   },
   favTitle: {
     marginLeft: theme.spacing.unit * 2
-  }
+  },
+  results: {
+    marginLeft: theme.spacing.unit * -1.5,
+    marginRight: theme.spacing.unit * -1.5
+  },
+  favoritesHeader: {
+    margin: theme.spacing.unit * 4
+  },
+  sectionHeader: {
+    display: 'flex',
+  },
+  grow: {
+    flexGrow: 1,
+  },
 });
 
 
@@ -128,36 +142,29 @@ class Favorites extends Component {
       if (JSON.stringify(this.state.favorites)  === "{}" || this.state.favorites  === null || this.state.favorites === undefined){
         resultsDisplay = <p>You don't have any favorites</p>
       } else {
-        resultsDisplay =  <div >
-                            <div className="row">
-
-                            </div>
-                            <div className= "row">
+        resultsDisplay =  <div className={classes.results}>
+                            <div className="row"/>
+                            <div className= "row ">
                               {this.state.favorites .map((value, index) => {
                                 return <Cards data={value} key={value.yID}/>;
                               })}
                             </div>
                           </div>
       }
-
       return (
-        <div className={classes.root}> 
-          <Grid container direction="row"  justify="space-between"> 
-            
-              <Grid className={classes.favTitle} item container direction="row" ><h2>Favorites </h2></Grid>
-              <Grid item container direction="row">
-                <Grid item >
-                  {sortBySelector}
-                </Grid>
-                <Grid item >
-                  {sortDirectionSelector}
-                </Grid>
-              </Grid>
-              
-              
-              
-            
-          </Grid>
+        <div className={[classes.root, classes.favoritesHeader].join(" ")}> 
+          <AppBar position="static" color="default">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                Favorites
+              </Typography>
+              <div className={classes.grow} />
+              <div className={classes.sectionHeader}>
+                {sortBySelector}
+                {sortDirectionSelector}
+              </div>
+            </Toolbar>
+          </AppBar>
           {resultsDisplay}
         </div>
       );

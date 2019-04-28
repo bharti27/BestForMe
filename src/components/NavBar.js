@@ -235,7 +235,7 @@ class NavBar extends React.Component {
                 }}
             />
           </div>
-          <div className={classes.sectionDesktop}>-
+          <div className={classes.sectionDesktop}>
               <Link to="/dashboard">
                 <IconButton color="inherit" >
                     <Home/>
