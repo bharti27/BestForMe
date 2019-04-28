@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import $ from "jquery";
 class NavBar extends Component{
     constructor( props ) {
@@ -11,7 +12,6 @@ class NavBar extends Component{
     }
 
     handleChange = name => event => {
-      alert(JSON.stringify(this.state));
         this.setState({
             [name]: event.target.value,
         });
@@ -20,7 +20,6 @@ class NavBar extends Component{
     submit (event) {
       event.preventDefault();
       event.stopPropagation();
-      alert(JSON.stringify(this.state));
       if (this.state.query !== undefined  && this.state.query !== "" ) {
         this.props.history.push('/search/' + this.state.query );
       }
@@ -59,4 +58,4 @@ class NavBar extends Component{
     }   
 }
 
-export default NavBar;
+export default withRouter(NavBar);

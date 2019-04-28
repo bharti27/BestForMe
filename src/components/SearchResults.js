@@ -9,9 +9,8 @@ export class SearchResults extends Component {
     }
 
     render() {
-        alert(this.props.match.params.query)
         return (
-            <h1>Search Result Page Placeholder</h1>
+            <h1>Search Result Page for {this.props.match.params.query}</h1>
         
         );
     }
