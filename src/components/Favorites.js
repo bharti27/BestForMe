@@ -8,8 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-var _ = require('underscore');
-
+import _ from 'lodash';
 
 const styles = theme => ({
   root: {

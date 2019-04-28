@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import _ from 'lodash';
 const initialState = {
     "authUser":{
     },
@@ -81,18 +81,41 @@ function rootReducer(state = initialState, action) {
         }
     }
     else if (action.type === "REMOVE_CARD_FROM_FAV") {
-            state.authUser.favorites.splice(  state.authUser.favorites.findIndex( ( item ) => {
-                if ( action.payload.name === item.name || action.payload.title === item.title ) {
+        state.authUser.favorites = _.remove( state.authUser.favorites, ( item ) => {
+            if ( action.payload.Name === undefined ) {
+                if ( action.payload.title !== item.title ) {
                     return true;
                 }
-            }), 1 );
-        state.users[ state.authUser.username ].favorites = state.authUser.favorites;
-        state.authUser.similar.splice(state.authUser.favorites.findIndex( ( item ) => {
-            if ( action.payload.name === item || action.payload.title === item ) {
-                return true;
+            } else {
+                if ( action.payload.Name !== item.Name ) {
+                    return true;
+                }
             }
-        }), 1 );
-        state.users[ state.authUser.username ].similar = state.authUser.similar ;
+        });
+        state.authUser.similar = _.remove( state.authUser.similar, ( item ) => {
+            if ( action.payload.Name === undefined ) {
+                if ( action.payload.title !== item ) {
+                    return true;
+                }
+            } else {
+                if ( action.payload.Name !== item ) {
+                    return true;
+                }
+            }
+
+        });
+        //     state.authUser.favorites.splice(  state.authUser.favorites.findIndex( ( item ) => {
+        //         if ( action.payload.name === item.name || action.payload.title === item.title ) {
+        //             return true;
+        //         }
+        //     }), 1 );
+        // state.users[ state.authUser.username ].favorites = state.authUser.favorites;
+        // state.authUser.similar.splice(state.authUser.favorites.findIndex( ( item ) => {
+        //     if ( action.payload.name === item || action.payload.title === item ) {
+        //         return true;
+        //     }
+        // }), 1 );
+        // state.users[ state.authUser.username ].similar = state.authUser.similar ;
 
     }
     return state;

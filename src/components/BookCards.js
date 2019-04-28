@@ -6,21 +6,21 @@ import {addCardToFav} from "../actions";
 import { connect } from "react-redux";
 
 
-export class BookCards extends Component {
+class BookCards extends Component {
 
     constructor( props ) {
         super( props );
         this.likedCard = this.likedCard.bind( this );
-        this.cardClicked = this.cardClicked.bind(this);
+
         this.isLiked = this.isLiked.bind( this );
         this.state = { heart: this.isLiked(), modalOpen: false };
     }
     isLiked(  ) {
-        // this.props.store.favorites.map( (value, index) => {
-        //         //     if ( value.Name === this.props.data.Name ) {
-        //         //         return "fa";
-        //         //     }
-        //         // } );
+        this.props.store.favorites.map( (value, index) => {
+                    if ( value.Name === this.props.data.Name ) {
+                        return "fa";
+                    }
+                } );
         return "far";
     }
     componentDidMount() {
@@ -49,20 +49,19 @@ export class BookCards extends Component {
                     <div className="card hoverable">
                         <div className="card-content ">
                             <span className="card-title">{ this.props.data.Name }</span>
-                            <p>{ this.props.data.wTeaser.length > 250 ? this.props.data.wTeaser.substring( 0, 250 ) + "..." : this.props.data.wTeaser }</p>
+                            <p>{ this.props.data.wTeaser.length > 400 ? this.props.data.wTeaser.substring( 0, 400 ) + "..." : this.props.data.wTeaser }</p>
                         </div>
                         <div className="card-action">
+                            <div className="btn-floating halfway-fab halfway-fab-2 waves-effect waves-light pink lighten-1" onClick={ this.likedCard }>
+                                <i className={ this.state.heart + " fa-heart" }/>
+                            </div>
                             <a href={ this.props.data.wUrl } target= "_blank">Explore More about it!</a>
                         </div>
                     </div>
                 </div>
         );
     }
-    cardClicked( event ) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.props.callBack( this.props.data );
-    }
+
 }
 const mapStateToProps = state => {
     return { store: state.simpleReducer.authUser};

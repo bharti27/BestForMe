@@ -49,7 +49,7 @@ class MediaCards extends Component {
             <div className="col item ">
                 <div className="card hoverable" onClick={ this.cardClicked }>
                     <div className="card-image">
-                        <img src={"http://img.youtube.com/vi/"+this.props.data.yID + "/mqdefault.jpg"}/>
+                        <img src={"http://img.youtube.com/vi/"+this.props.data.yID + "/hqdefault.jpg"}/>
 
                         <div className="btn-floating halfway-fab waves-effect waves-light pink lighten-1" onClick={ this.likedCard }>
                             <i className={ this.state.heart + " fa-heart" }/>
