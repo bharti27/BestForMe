@@ -4,15 +4,40 @@ import $ from "jquery";
 class NavBar extends Component{
     constructor( props ) {
         super( props );
+        this.state = {
+          query: ""
+        };
+        this.submit  = this.submit.bind(this);
     }
+
+    handleChange = name => event => {
+      alert(JSON.stringify(this.state));
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    submit (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      alert(JSON.stringify(this.state));
+      if (this.state.query !== undefined  && this.state.query !== "" ) {
+        this.props.history.push('/search/' + this.state.query );
+      }
+    }
+
     render() {
         return (
             <nav className=" header clearfix">
             <div className = "nav-wrapper">
             <h4 className = "left-align clearfix header__heading__nav"> BestForMe </h4>
+              
                 <div className="input-field">
+                  <form onSubmit = { this.submit }>
                     <i className="material-icons search_icon">search</i>
-                    <input id="search" type="text" className="" placeholder="Search"/>
+                    <input id="search" type="text" className="" placeholder="Search" value = {this.state.query} onChange={ this.handleChange( 'query' )} />
+                  </form>
+                
                 </div>
             <ul className="right hide-on-med-and-down">
                 <li><Link to = "/dashboard">
@@ -31,7 +56,7 @@ class NavBar extends Component{
           </div>
           </nav>
         );
-    }
+    }   
 }
 
 export default NavBar;
