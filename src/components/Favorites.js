@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import MediaCards from "../MediaCard";
 import Cards from "./Cards";
 import { connect } from "react-redux";
+import NavBar from "./NavBar";
+import $ from "jquery";
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -52,6 +55,14 @@ class Favorites extends Component {
     };
   }
     componentDidMount() {
+        $( 'body' ).css( {
+            background: this.props.authUser.primaryColor,
+            color: this.props.authUser.secondaryColor
+        } );
+        $( 'nav' ).css( {
+            background: this.props.authUser.secondaryColor,
+            color: this.props.authUser.primaryColor
+        } )
     }
 
     componentWillMount() {
@@ -75,26 +86,26 @@ class Favorites extends Component {
           this.setState({ favorites: _.sortBy(this.state.favorites, by)})
         }
       }
-    }
+    };
 
     handleSort = name => event => {
       // Using temp local vars because setState() is async
-      var tempDir = this.state.sortDirection
-      var tempBy  = this.state.sortBy
+      var tempDir = this.state.sortDirection;
+      var tempBy  = this.state.sortBy;
 
       if (name ===  "sortDirection") {
-        tempDir = event.target.value
+        tempDir = event.target.value;
         this.setState({ sortDirection: tempDir});
       }
 
       if (name === "sortBy") {
-        tempBy = event.target.value
+        tempBy = event.target.value;
         this.setState({ sortBy: tempBy});
       }
 
       this.sortFavorites(tempBy, tempDir)
-      
-    }
+
+    };
 
     render() {
       const { classes } = this.props;
@@ -146,7 +157,12 @@ class Favorites extends Component {
                             <div className="row"/>
                             <div className= "row ">
                               {this.state.favorites .map((value, index) => {
-                                return <Cards data={value} key={value.yID}/>;
+                                  if ( value.title === undefined ) {
+                                      return <MediaCards data={value} key={value.yID}/>;
+                                  } else {
+                                      return <Cards data={value} key={value.id}/>;
+                                  }
+
                               })}
                             </div>
                           </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import loginDetails from '../usersDetails';
 import { connect } from "react-redux";
 import { addAuthenticatedUser } from "../actions";
-
+import { Header } from './Header';
 class Login extends Component {
     constructor( props ) {
         super( props );
@@ -23,7 +23,9 @@ class Login extends Component {
 
     render() {
         return (
-            <div className= "login-background">
+            <div>
+            <Header />
+            <div className= "login-background"/>
             <div className=" login-container clearfix">
                 <form className="clearfix" onSubmit = { this.submit }>
                     <div className="clearfix">
