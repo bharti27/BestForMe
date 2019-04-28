@@ -168,20 +168,23 @@ class Favorites extends Component {
                           </div>
       }
       return (
-        <div className={[classes.root, classes.favoritesHeader].join(" ")}> 
-          <AppBar position="static" color="default">
-            <Toolbar>
-              <Typography variant="h6" color="inherit">
-                Favorites
-              </Typography>
-              <div className={classes.grow} />
-              <div className={classes.sectionHeader}>
-                {sortBySelector}
-                {sortDirectionSelector}
-              </div>
-            </Toolbar>
-          </AppBar>
-          {resultsDisplay}
+        <div>
+          <NavBar />
+          <div className={[classes.root, classes.favoritesHeader].join(" ")}> 
+            <AppBar position="static" color="default">
+              <Toolbar>
+                <Typography variant="h6" color="inherit">
+                  Favorites
+                </Typography>
+                <div className={classes.grow} />
+                <div className={classes.sectionHeader}>
+                  {sortBySelector}
+                  {sortDirectionSelector}
+                </div>
+              </Toolbar>
+            </AppBar>
+            {resultsDisplay}
+          </div>
         </div>
       );
     }
