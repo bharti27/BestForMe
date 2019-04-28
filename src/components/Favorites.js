@@ -11,9 +11,7 @@ import Select from '@material-ui/core/Select';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-
-var _ = require('underscore')
-
+import _ from 'lodash';
 
 const styles = theme => ({
   root: {
@@ -69,7 +67,7 @@ class Favorites extends Component {
       this.state.favorites = this.props.authUser.favorites;
     }
 
-    // TODO: Added doesn't work as expected with reverse, revise to use a timestamo instead
+    // TODO: Added doesn't work as expected with reverse, revise
     sortFavorites = (by, dir) =>{
       if ( by === "Added") { // Added uses the order that they are stored
         if (dir === "d"){
@@ -80,10 +78,10 @@ class Favorites extends Component {
         }
       } else {
         if (dir === "d"){
-          this.setState({ favorites: _.sortBy(this.state.favorites, by).reverse()})
+          this.setState({ favorites: _.sortBy(this.props.authUser.favorites, by).reverse()})
         } else {
           // a is default, if dir is a or anything else, sort ascending
-          this.setState({ favorites: _.sortBy(this.state.favorites, by)})
+          this.setState({ favorites: _.sortBy(this.props.authUser.favorites, by)})
         }
       }
     };
@@ -111,7 +109,7 @@ class Favorites extends Component {
       const { classes } = this.props;
       let resultsDisplay;
       // Dropdown to select what to sort by
-      const sortBySelector = ( 
+      const sortBySelector = (
         <div className="">
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-native-simple">Sort By</InputLabel>
@@ -131,7 +129,7 @@ class Favorites extends Component {
           </FormControl>
         </div>);
 
-      const sortDirectionSelector = ( 
+      const sortDirectionSelector = (
         <div className="">
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-native-simple">Sort Direction</InputLabel>
@@ -167,6 +165,7 @@ class Favorites extends Component {
                             </div>
                           </div>
       }
+
       return (
         <div>
           <NavBar />

@@ -42,7 +42,7 @@ h1{
     background: #ff9800 !important;
     position: absolute;
     top: 2%;
-    height: 300px;
+    height: 340px;
     width: 25px;
     left: -30px;
     border-radius: 4px;
@@ -55,7 +55,7 @@ h1{
     background: #ff9800 !important;
     position: absolute;
     top: 2%;
-    height: 300px;
+    height: 340px;
     width: 25px;
     border-radius: 4px;
     right : -30px;
@@ -71,7 +71,8 @@ h1{
 .card {
     display: inline-block;
     width: 300px !important;;
-    height: 300px !important;
+    height: 340px !important;
+    overflow: hidden;
 
 }
 .trending {
@@ -267,7 +268,7 @@ h1{
     height: 50px;
     margin: 0;
     position: relative;
-    top: 0px;
+    top: 5px;
 }
 #search{
    color: black;
@@ -297,4 +298,15 @@ h1{
 }
 .disabled{
     opacity: 0.4;
+}
+.card .card-action{
+    bottom: 0%;
+    height: 20%;
+}
+.card .card-content{
+    height: 80%;
+}
+.halfway-fab-2{
+    bottom: inherit !important;
+    top: -16px !important;
 }

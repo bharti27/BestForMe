@@ -11,6 +11,7 @@
     "connected-react-router": "^6.4.0",
     "history": "latest",
     "jquery": "^3.4.0",
+    "lodash": "^4.17.11",
     "material-ui": "^0.20.2",
     "material-ui-color-picker": "^3.2.0",
     "materialize-css": "^1.0.0-rc.2",
@@ -28,7 +29,7 @@
     "redux": "latest",
     "redux-injector": "^0.1.0",
     "redux-thunk": "^2.3.0",
-    "underscore": "^1.9.1"
+    "underscore": "^4.16.4"
   },
   "scripts": {
     "start": "react-scripts start",

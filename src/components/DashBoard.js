@@ -5,8 +5,7 @@ import Trending from "./Trending";
 import ModalVideo from "react-modal-video";
 import { connect } from "react-redux";
 import APP from "../Utils";
-import SimpleCard from '@material-ui/core/Card';
-import {BookCards} from "./BookCards";
+import BookCards from "./BookCards";
 import MediaCards from "../MediaCard";
 import NavBar from "./NavBar";
 window.jQuery = window.$ = $;
@@ -57,7 +56,8 @@ export class DashBoard extends Component {
     }
     getMovieList() {
         APP.getMovieListWithGeners( this.onSuccess, {
-        with_genres: this.props.authUser.genres.join(",")
+            with_genres: this.props.authUser.genres.join(","),
+            sort_by: "popularity.desc"
         } );
     }
     getTrending() {
@@ -76,12 +76,12 @@ export class DashBoard extends Component {
             nav:true,
         items: 4});
         $( '.owl-prev' ).css( {
-            background: this.props.authUser.secondaryColor,
-            color: this.props.authUser.primaryColor
+            "background-color": this.props.authUser.secondaryColor + "! important",
+            color: this.props.authUser.primaryColor + "! important"
         } );
         $( '.owl-next' ).css( {
-            background: this.props.authUser.secondaryColor,
-            color: this.props.authUser.primaryColor
+            "background-color": this.props.authUser.secondaryColor + "!important",
+            color: this.props.authUser.primaryColor + "!important"
         } );
     }
 
