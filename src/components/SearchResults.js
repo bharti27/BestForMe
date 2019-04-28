@@ -54,6 +54,9 @@ class SearchResults extends Component {
                     Info: [],
                     Results:[]}
                 },
+            infoOutput: [],
+            resultsOutput: [],
+
             sortBy: "Added",
             sortDirection: "a" // a -> ascending, d -> descending
         };
@@ -74,28 +77,99 @@ class SearchResults extends Component {
     }
 
     componentWillReceiveProps() {
-        this.retrieveData();
+        if(this.props.match.params.query !== this.state.query){
+            this.retrieveData();
+        }
     }
 
     retrieveData()  {
-        this.setState({ query: this.props.match.params.query }) ;
+        this.setState({ query: this.props.match.params.query });
         const callbackMethod = response  => {
             if (response !== undefined && response !== null){
-                this.setState( {searchOutput: response});
+                this.setState( {searchOutput: response,
+                                infoOutput: response.Similar.Info,
+                                resultsOutput: response.Similar.Results});
+                
             }
         };
         APP.getResultsFromTasteDive( { q: this.props.match.params.query, info: 1 }, callbackMethod  );
     }
 
     
+    sortResults = (by, dir) =>{
+        if (dir === "d"){
+            this.setState({ resultsOutput: _.sortBy(this.state.searchOutput.Similar.Results, by).reverse()})
+        } else {
+        // a is default, if dir is a or anything else, sort ascending
+            this.setState({ resultsOutput: _.sortBy(this.state.searchOutput.Similar.Results, by)})
+        }
+    };
+
+    handleSort = name => event => {
+        // Using temp local vars because setState() is async
+        var tempDir = this.state.sortDirection;
+        var tempBy  = this.state.sortBy;
+  
+        if (name ===  "sortDirection") {
+          tempDir = event.target.value;
+          this.setState({ sortDirection: tempDir});
+        }
+  
+        if (name === "sortBy") {
+          tempBy = event.target.value;
+          this.setState({ sortBy: tempBy});
+        }
+        this.sortResults(tempBy, tempDir)
+      };
+
+    
     render() {
         const { classes } = this.props;
+
+        // Dropdown to select what to sort by
+      const sortBySelector = (
+        <div className="">
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="age-native-simple">Sort By</InputLabel>
+            <Select
+              native
+              value={this.state.sortBy}
+              onChange={this.handleSort('sortBy')}
+              inputProps={{
+                name: 'sortBy',
+                id: 'sort-by-selector',
+              }}
+            >
+              <option value={"Name"}>Name</option>
+              <option value={"Type"}>Type</option>
+            </Select>
+          </FormControl>
+        </div>);
+
+      // Dropdown to select sort direction
+      const sortDirectionSelector = (
+        <div className="">
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="age-native-simple">Sort Direction</InputLabel>
+            <Select
+              native
+              value={this.state.sortDirection}
+              onChange={this.handleSort('sortDirection')}
+              inputProps={{
+                name: 'sortDirection',
+                id: 'sort-dir-selector',
+              }}>
+              <option value={"a"}>Ascending</option>
+              <option value={"d"}>Decsending</option>
+            </Select>
+          </FormControl>
+        </div>);
         
         const resultsDisplay = (
             <div className="">
                 <div className="row"/>
                 <div className= "row ">
-                    {this.state.searchOutput.Similar.Results.map((value, index) => {
+                    {this.state.resultsOutput.map((value, index) => {
                         if ( value.title === undefined ) {
                             return <MediaCards data={value} key={value.yID}/>;
                         } else {
@@ -118,6 +192,8 @@ class SearchResults extends Component {
                         </Typography>
                         <div className={classes.grow} />
                         <div className={classes.sectionHeader}>
+                            {sortBySelector}
+                            {sortDirectionSelector}
                         </div>
                     </Toolbar>
                     </AppBar>
