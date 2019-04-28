@@ -50,16 +50,10 @@ class SearchResults extends Component {
         super(props);
         this.state  = {
             query: "",
-            searchOutput: {
-                Similar:{
-                    Info: [],
-                    Results:[]}
-                },
-            infoOutput: [],
-            resultsOutput: [],
-
             Info: [],
             Results:[],
+            infoOutput: [],
+            resultsOutput: [],
             sortBy: "Added",
             sortDirection: "a" // a -> ascending, d -> descending
         };
@@ -75,38 +69,33 @@ class SearchResults extends Component {
             color: this.props.authUser.primaryColor
         } )
     }
-    componentWillUnmount() {
-    }
     componentWillMount() {
         this.retrieveData();
     }
 
     componentWillReceiveProps() {
-        if(this.props.match.params.query !== this.state.query){
-            this.retrieveData();
-        }
+        this.retrieveData();
     }
 
     retrieveData()  {
-        this.setState({ query: this.props.match.params.query });
-        const callbackMethod = response  => {
         const values = queryString.parse(this.props.history.location.search);
         var _self = this;
+
         let callbackMethod = response  => {
             let nowUpdate = ()  => {
                 _self.setState( {
-                    Results: response.Similar.Results
+                    Results: response.Similar.Results,
+                    infoOutput: response.Similar.Info,
+                    resultsOutput: response.Similar.Results
                 } );
             };
             if (response !== undefined && response !== null){
-                this.setState( {searchOutput: response,
-                                infoOutput: response.Similar.Info,
-                                resultsOutput: response.Similar.Results});
-
                 _self.setState( {
                     Results: [],
+                    infoOutput: [],
+                    resultsOutput:[],
                     query: values.filter
-                }, nowUpdate );
+                }, nowUpdate);
             }
 
         };
@@ -116,10 +105,10 @@ class SearchResults extends Component {
     
     sortResults = (by, dir) =>{
         if (dir === "d"){
-            this.setState({ resultsOutput: _.sortBy(this.state.searchOutput.Similar.Results, by).reverse()})
+            this.setState({ resultsOutput: _.sortBy(this.state.Results, by).reverse()})
         } else {
         // a is default, if dir is a or anything else, sort ascending
-            this.setState({ resultsOutput: _.sortBy(this.state.searchOutput.Similar.Results, by)})
+            this.setState({ resultsOutput: _.sortBy(this.state.Results, by)})
         }
     };
 
@@ -183,22 +172,6 @@ class SearchResults extends Component {
           </FormControl>
         </div>);
 
-        const resultsDisplay = (
-            <div className="">
-                <div className="row"/>
-                <div className= "row ">
-                    {this.state.resultsOutput.map((value, index) => {
-                        if ( value.title === undefined ) {
-                            return <MediaCards data={value} key={value.yID}/>;
-                        } else {
-                            return <Cards data={value} key={value.id}/>;
-                        }
-
-                    })}
-                </div>
-            </div>
-        );
-
         const infoDisplay = (
             <div className="">
                 <div className="row"/>
@@ -214,10 +187,6 @@ class SearchResults extends Component {
                 </div>
             </div>
         );
-        // let resultsDisplay = (
-        //
-        // );
-
 
 
         return (
