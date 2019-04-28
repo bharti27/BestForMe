@@ -5,13 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import { Grid } from '@material-ui/core';
+
+import Paper from '@material-ui/core/Paper';
 var _ = require('underscore')
 
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    flexGrow: 1
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -20,6 +22,9 @@ const styles = theme => ({
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
   },
+  favTitle: {
+    marginLeft: theme.spacing.unit * 2
+  }
 });
 
 
@@ -39,7 +44,7 @@ class Favorites extends Component {
       this.state.favorites = this.props.authUser.favorites;
     }
 
-    // TODO: Added doesn't work as expected with reverse, revise
+    // TODO: Added doesn't work as expected with reverse, revise to use a timestamo instead
     sortFavorites = (by, dir) =>{
       if ( by === "Added") { // Added uses the order that they are stored
         if (dir === "d"){
@@ -82,7 +87,7 @@ class Favorites extends Component {
       let resultsDisplay;
       // Dropdown to select what to sort by
       const sortBySelector = ( 
-        <div className="row">
+        <div className="">
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-native-simple">Sort By</InputLabel>
             <Select
@@ -102,7 +107,7 @@ class Favorites extends Component {
         </div>);
 
       const sortDirectionSelector = ( 
-        <div className="row">
+        <div className="">
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-native-simple">Sort Direction</InputLabel>
             <Select
@@ -123,7 +128,7 @@ class Favorites extends Component {
       if (JSON.stringify(this.state.favorites)  === "{}" || this.state.favorites  === null || this.state.favorites === undefined){
         resultsDisplay = <p>You don't have any favorites</p>
       } else {
-        resultsDisplay =  <div className= "container" >
+        resultsDisplay =  <div >
                             <div className="row">
 
                             </div>
@@ -136,13 +141,25 @@ class Favorites extends Component {
       }
 
       return (
-          <div className={classes.root}>
-            <div className="row"><h1>Favorites Page</h1></div>
-            {sortBySelector}
-            {sortDirectionSelector}
+        <div className={classes.root}> 
+          <Grid container direction="row"  justify="space-between"> 
             
-            {resultsDisplay}
-          </div>
+              <Grid className={classes.favTitle} item container direction="row" ><h2>Favorites </h2></Grid>
+              <Grid item container direction="row">
+                <Grid item >
+                  {sortBySelector}
+                </Grid>
+                <Grid item >
+                  {sortDirectionSelector}
+                </Grid>
+              </Grid>
+              
+              
+              
+            
+          </Grid>
+          {resultsDisplay}
+        </div>
       );
     }
 }

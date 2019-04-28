@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -19,6 +20,9 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 const styles = theme => ({
+  spacing: {
+    unit: 8
+  },
   root: {
     width: '100%',
   },
@@ -42,11 +46,10 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing.unit * 2,
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 3,
+      marginLeft: theme.spacing.unit,
       width: 'auto',
     },
   },
@@ -70,8 +73,11 @@ const styles = theme => ({
     paddingLeft: theme.spacing.unit * 10,
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 200,
+    [theme.breakpoints.up('sm')]: {
+      width: 120,
+      '&:focus': {
+        width: 200,
+      },
     },
   },
   sectionDesktop: {
@@ -85,7 +91,7 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
-  },
+  }
 });
 
 class NavBar extends React.Component {
@@ -217,20 +223,19 @@ class NavBar extends React.Component {
         </Typography>
         
           <div className={classes.grow} />
-          {/* <div className={classes.search}>
+          <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
               placeholder="Search…"
-              fullWidth="true"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
-              }}
+                }}
             />
-          </div> */}
-          <div className={classes.sectionDesktop}>
+          </div>
+          <div className={classes.sectionDesktop}>-
               <Link to="/dashboard">
                 <IconButton color="inherit" >
                     <Home/>
@@ -254,7 +259,6 @@ class NavBar extends React.Component {
               <MoreIcon />
             </IconButton>
           </div>
-        
       </Toolbar>
     );
 
