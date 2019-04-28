@@ -129,6 +129,7 @@ class Favorites extends Component {
           </FormControl>
         </div>);
 
+      // Dropdown to select sort direction
       const sortDirectionSelector = (
         <div className="">
           <FormControl className={classes.formControl}>

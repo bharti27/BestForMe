@@ -6,7 +6,7 @@ import DashBoard from "./components/DashBoard";
 import Login from "./components/Login";
 import {Registration} from "./components/Registration";
 import Favorites from "./components/Favorites";
-import {SearchResults} from "./components/SearchResults";
+import SearchResults from "./components/SearchResults";
 import connect from "react-redux/es/connect/connect";
 import {
     BrowserRouter as Router,
