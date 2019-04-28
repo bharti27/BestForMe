@@ -75,14 +75,18 @@ export class DashBoard extends Component {
             margin:30,
             nav:true,
         items: 4});
-        $( '.owl-prev' ).css( {
-            "background-color": this.props.authUser.secondaryColor + "! important",
-            color: this.props.authUser.primaryColor + "! important"
-        } );
-        $( '.owl-next' ).css( {
-            "background-color": this.props.authUser.secondaryColor + "!important",
-            color: this.props.authUser.primaryColor + "!important"
-        } );
+        var _self = this;
+        setTimeout( () => {
+            $( '.owl-prev' ).css( {
+                backgroundColor: _self.props.authUser.secondaryColor,
+                color: _self.props.authUser.primaryColor
+            } );
+            $( '.owl-next' ).css( {
+                backgroundColor: _self.props.authUser.secondaryColor,
+                color: _self.props.authUser.primaryColor
+            } );
+        }, 100 );
+
     }
 
     render() {
