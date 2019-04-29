@@ -57,8 +57,8 @@ class SearchResults extends Component {
             Results:[],
             infoOutput: [],
             resultsOutput: [],
-            sortBy: "Added",
-            sortDirection: "a", // a -> ascending, d -> descending
+            sortBy: "Relevance",
+            sortDirection: "asc", // asc -> ascending, desc -> descending
             modalOpen: false,
             modalURLId: "",
             modalType: ""
@@ -113,16 +113,13 @@ class SearchResults extends Component {
 
     
     sortResults = (by, dir) =>{
-        let tempBy = by;
         if (by === "name") {
-            tempBy = [function(o) { return o.name || o.title; }]
-        }
-
-        if (dir === "d"){
-            this.setState({ resultsOutput: _.sortBy(this.state.Results, tempBy).reverse()})
+            this.setState({resultsOutput: _.orderBy(this.state.Results, ['title', 'name'], [dir])})
+        } else if (by === "Relevance"){
+            dir === "asc" ? this.setState({resultsOutput: this.state.Results}) :
+                                      this.setState({resultsOutput: _.reverse(this.state.Results)})
         } else {
-        // a is default, if dir is a or anything else, sort ascending
-            this.setState({ resultsOutput: _.sortBy(this.state.Results, tempBy)})
+            this.setState({resultsOutput: _.orderBy(this.state.Results, [by], [dir])})
         }
     };
 
@@ -189,6 +186,7 @@ class SearchResults extends Component {
                 id: 'sort-by-selector',
               }}
             >
+              <option value={"Relevance"}>Default</option> {/*Changed to default because API return order != relevance */}
               <option value={"Name"}>Name</option>
               <option value={"Type"}>Type</option>
             </Select>
@@ -208,8 +206,8 @@ class SearchResults extends Component {
                 name: 'sortDirection',
                 id: 'sort-dir-selector',
               }}>
-              <option value={"a"}>Ascending</option>
-              <option value={"d"}>Decsending</option>
+              <option value={"asc"}>Ascending</option>
+              <option value={"desc"}>Decsending</option>
             </Select>
           </FormControl>
 

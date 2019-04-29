@@ -52,7 +52,7 @@ class Favorites extends Component {
     this.state  = {
         favorites: {},
         sortBy: "Added",
-        sortDirection: "a", // a -> ascending, d -> descending
+        sortDirection: "asc", // asc -> ascending, desc -> descending
         modalOpen: false,
         modalURLId: "",
         modalType: ""
@@ -75,22 +75,14 @@ class Favorites extends Component {
       this.state.favorites = this.props.authUser.favorites;
     }
 
-    // TODO: Added doesn't work as expected with reverse, revise
     sortFavorites = (by, dir) =>{
-      if ( by === "Added") { // Added uses the order that they are stored
-        if (dir === "d"){
-          this.setState({ favorites: this.props.authUser.favorites.reverse()});
-        } else {
-          // a is default, if dir is a or anything else, sort ascending
-          this.setState({ favorites: this.props.authUser.favorites});
-        }
+      if (by === "name") {
+          this.setState({favorites: _.orderBy(this.props.authUser.favorites, ['title', 'name'], [dir])})
+      } else if (by === "Added"){
+          dir === "asc" ? this.setState({favorites: this.props.authUser.favorites}) :
+                                    this.setState({favorites: _.reverse(this.props.authUser.favorites)})
       } else {
-        if (dir === "d"){
-          this.setState({ favorites: _.sortBy(this.props.authUser.favorites, by).reverse()})
-        } else {
-          // a is default, if dir is a or anything else, sort ascending
-          this.setState({ favorites: _.sortBy(this.props.authUser.favorites, by)})
-        }
+          this.setState({favorites: _.orderBy(this.props.authUser.favorites, [by], [dir])})
       }
     };
 
@@ -130,9 +122,9 @@ class Favorites extends Component {
                 id: 'sort-by-selector',
               }}
             >
+              <option value={"Added"}>Added</option>
               <option value={"Name"}>Name</option>
               <option value={"Type"}>Type</option>
-              <option value={"Added"}>Added</option>
             </Select>
           </FormControl>
         </div>);
@@ -151,8 +143,8 @@ class Favorites extends Component {
                 id: 'sort-dir-selector',
               }}
             >
-              <option value={"a"}>Ascending</option>
-              <option value={"d"}>Decsending</option>
+              <option value={"asc"}>Ascending</option>
+              <option value={"desc"}>Decsending</option>
             </Select>
           </FormControl>
         </div>);
