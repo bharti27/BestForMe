@@ -45,7 +45,7 @@ class BookCards extends Component {
     render() {
 
         return (
-            <div className="col s4 item">
+            <div className="col item">
                     <div className="card hoverable">
                         <div className="card-content ">
                             <span className="card-title">{ this.props.data.Name }</span>

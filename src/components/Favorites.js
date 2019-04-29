@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MediaCards from "../MediaCard";
+import BookCards from "./BookCards";
 import Cards from "./Cards";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
@@ -156,11 +157,16 @@ class Favorites extends Component {
                             <div className="row"/>
                             <div className= "row ">
                               {this.state.favorites .map((value, index) => {
-                                  if ( value.title === undefined ) {
-                                      return <MediaCards data={value} key={value.yID}/>;
+                                if ( value.title === undefined ) {
+                                  if (value.Type === "book") {
+                                      return <BookCards data={value} key={value.yID} callback={this.openModal}/>
                                   } else {
-                                      return <Cards data={value} key={value.id}/>;
+                                      return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
                                   }
+                                }
+                                else {
+                                    return <Cards data={value} key={value.id} callback={this.openModal}/>;
+                                }
 
                               })}
                             </div>

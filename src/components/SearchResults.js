@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import M from "materialize-css";
 import MediaCards from "../MediaCard";
 import Cards from "./Cards";
+import BookCards from "./BookCards";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import $ from "jquery";
@@ -56,7 +57,12 @@ class SearchResults extends Component {
             infoOutput: [],
             resultsOutput: [],
             sortBy: "Added",
-            sortDirection: "a" // a -> ascending, d -> descending
+            sortDirection: "a", // a -> ascending, d -> descending
+        // For Card Modals
+            modalOpen: false,
+            modalURLId: "",
+            modalType: "",
+            media: [],
         };
       }
 
@@ -134,7 +140,7 @@ class SearchResults extends Component {
       };
 
       // "Not Found" response looks like this
-    // {"Similar":{"Info":[{"Name":"xdx","Type":"unknown"},{"Name":"xdx","Type":"unknown"}],"Results":[]}}
+      // {"Similar":{"Info":[{"Name":"xdx","Type":"unknown"},{"Name":"xdx","Type":"unknown"}],"Results":[]}}
       foundValidResults = () => {
           //alert(JSON.stringify(this.state.infoOutput))
           try {
@@ -149,6 +155,18 @@ class SearchResults extends Component {
             return false;
           }
       };
+
+    openModal( p ) {
+        var _self = this;
+        const onVideoDetails = function( response ) {
+            _self.setState( {modalOpen: true, modalURLId: response.items[0].id.videoId, modalType: "" } );
+        };
+        if ( p.title === undefined ) {
+            APP.getResultsFromYouTube( { q: p.Name + " Official Trailer" },onVideoDetails );
+        } else {
+            APP.getResultsFromYouTube( { q: p.title + " Official Trailer" },onVideoDetails );
+        }
+    }
 
 
     render() {
@@ -192,32 +210,45 @@ class SearchResults extends Component {
             </Select>
           </FormControl>
         </div>);
-
+        let isUnknown = false;
         const infoDisplay = (
             <div className="">
                 <div className="row"/>
                 <div className= "row ">
                     {this.state.infoOutput.map((value, index) => {
-                        if ( value.title === undefined ) {
-                            return <MediaCards data={value} key={value.yID}/>;
+                        if ( value.Type !== "unknown"  ) {
+                            if ( value.title === undefined ) {
+                                if (value.Type === "book") {
+                                    return <BookCards data={value} key={value.yID} callback={this.openModal}/>
+                                } else {
+                                    return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
+                                }
+                            }
+                            else {
+                                return <Cards data={value} key={value.id} callback={this.openModal}/>;
+                            }
+    
                         } else {
-                            return <Cards data={value} key={value.id}/>;
+                            if ( !isUnknown ) {
+                                isUnknown = true;
+                                return (
+                                    <div>
+                                        <Paper className={classes.root} elevation={1}>
+                                            <Typography variant="h5" component="h3">
+                                            No results for {this.query}
+                                            </Typography>
+                                        </Paper>
+                                    </div>
+                                );
+                            }
+                            
                         }
-
+                        
                     })}
                 </div>
             </div>
         );
         
-        const noInfoDisplay = (
-            <div>
-                <Paper className={classes.root} elevation={1}>
-                    <Typography variant="h5" component="h3">
-                    No results for "{this.query}"
-                    </Typography>
-                </Paper>
-            </div>
-        );
 
         const resultsDisplay = (
             <div className="">
@@ -225,9 +256,14 @@ class SearchResults extends Component {
                 <div className= "row ">
                     {this.state.resultsOutput.map((value, index) => {
                         if ( value.title === undefined ) {
-                            return <MediaCards data={value} key={value.yID}/>;
-                        } else {
-                            return <Cards data={value} key={value.id}/>;
+                            if (value.Type === "book") {
+                                return <BookCards data={value} key={value.yID} callback={this.openModal}/>
+                            } else {
+                                return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
+                            }
+                        }
+                        else {
+                            return <Cards data={value} key={value.id} callback={this.openModal}/>;
                         }
 
                     })}
@@ -246,8 +282,7 @@ class SearchResults extends Component {
                         </Typography>
                     </Toolbar>
                     </AppBar>
-                    {/* {infoDisplay} */}
-                    { this.foundValidResults ? infoDisplay : noInfoDisplay}
+                    {infoDisplay}
                     <AppBar position="static" color="default">
                     <Toolbar>
                         <Typography variant="h6" color="inherit">
@@ -260,8 +295,7 @@ class SearchResults extends Component {
                         </div>
                     </Toolbar>
                     </AppBar>
-                    {this.foundValidResults  ? resultsDisplay : noInfoDisplay}
-                    {/* {resultsDisplay} */}
+                    {resultsDisplay}
                 </div>
             </div>
         
