@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import loginDetails from '../usersDetails';
 import { connect } from "react-redux";
 import { addAuthenticatedUser } from "../actions";
-
+import { Header } from './Header';
 class Login extends Component {
     constructor( props ) {
         super( props );
@@ -23,24 +23,26 @@ class Login extends Component {
 
     render() {
         return (
-            <div className= "login-background">
-            <div className=" login-container clearfix">
-                <form className="clearfix" onSubmit = { this.submit }>
-                    <div className="clearfix">
-                        <p className= "error"> { this.state.errorMessage } </p>
-                        <div className="input-field">
-                            <input id="username" type="text" className="" value = {this.state.username} onChange={ this.handleChange( 'username' ) }/>
-                                <label htmlFor="username">User Name</label>
+            <div>
+            <Header />
+            <div className= "login-background"/>
+                <div className=" login-container clearfix">
+                    <form className="clearfix" onSubmit = { this.submit }>
+                        <div className="clearfix">
+                            <p className= "error"> { this.state.errorMessage } </p>
+                            <div className="input-field">
+                                <input id="username" type="text" className="" value = {this.state.username} onChange={ this.handleChange( 'username' ) }/>
+                                    <label htmlFor="username">User Name</label>
+                            </div>
+                            <div className="input-field">
+                                <input id="password" type="password" className="" value = {this.state.password} onChange={ this.handleChange( 'password' ) }/>
+                                    <label htmlFor="password">Password</label>
+                            </div>
+                            <a className="row m10 right clearfix">Forgot Password ?</a>
+                            <input type= "submit" className="waves-effect waves-light btn-large right clearfix" value = "Login"/>
                         </div>
-                        <div className="input-field">
-                            <input id="password" type="password" className="" value = {this.state.password} onChange={ this.handleChange( 'password' ) }/>
-                                <label htmlFor="password">Password</label>
-                        </div>
-                        <a className="row m10 right clearfix">Forgot Password ?</a>
-                        <input type= "submit" className="waves-effect waves-light btn-large right clearfix" value = "Login"/>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
             </div>
         );
     }

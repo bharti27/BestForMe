@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -129,144 +130,72 @@ class NavBar extends React.Component {
     }
     if(this.state.mobileMoreAnchorEl !== null){
       this.handleMobileMenuClose();
+=======
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
+import $ from "jquery";
+import searchResults from './SearchResults';
+import * as ReactDOM from "react-dom";
+class NavBar extends Component{
+    constructor( props ) {
+        super( props );
+        this.state = {
+          query: ""
+        };
+        this.submit  = this.submit.bind(this);
+>>>>>>> d969351230c7f3af3530182e0bf8dad05b93028a
     }
-  }
 
-  navToAccount = event => {
-      //this.props.history.push('/account');
-    if(this.state.anchorEl !== null){
-      this.handleMenuClose();
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    submit (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (this.state.query !== undefined  && this.state.query !== "" ) {
+         // ReactDOM.unmountComponentAtNode( searchResults );
+        this.props.history.push('/search?filter=' + this.state.query );
+      }
     }
-    if(this.state.mobileMoreAnchorEl !== null){
-      this.handleMobileMenuClose();
-    }
-  }
 
-  logout = event => {
-    // TODO: Clear current user
-      //this.props.history.push('/');
-    if(this.state.anchorEl !== null){
-      this.handleMenuClose();
-    }
-    if(this.state.mobileMoreAnchorEl !== null){
-      this.handleMobileMenuClose();
-    }
-  }
+    render() {
+        return (
+            <nav className=" header clearfix">
+            <div className = "nav-wrapper">
+            <h4 className = "left-align clearfix header__heading__nav"> BestForMe </h4>
+              
+                <div className="input-field">
+                  <form onSubmit = { this.submit }>
+                    <i className="material-icons search_icon">search</i>
+                    <input id="search" type="text" className="" placeholder="Search" value = {this.state.query} onChange={ this.handleChange( 'query' )} />
+                  </form>
+                
+                </div>
+            <ul className="right hide-on-med-and-down">
+                <li><Link to = "/dashboard">
+                    <i className="waves-effect waves-light right-align clearfix small material-icons icons">refresh</i>
+                </Link></li>
+                <li><Link to = "/dashboard">
+                    <i className=" waves-effect waves-light right-align clearfix small material-icons icons">home</i>
+                </Link></li>
+                <li><Link to = "/favorites">
+                    <i className=" waves-effect waves-light right-align clearfix small material-icons icons">favorite</i>
+                </Link></li>
 
-
-  render() {
-    const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes } = this.props;
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    // Menu for Account Icon
-    const renderMenu = (
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMenuOpen}
-        onClose={this.handleMenuClose}
-      >
-        <MenuItem onClick={this.navToAccount}>
-          <AccountCircle />
-          <p>Profile</p>
-        </MenuItem>
-        <MenuItem onClick={this.logout}>
-
-          <p>Logout</p>
-        </MenuItem>
-      </Menu>
-    );
-
-    // Menu for when NavBar is Mobile size
-    const renderMobileMenu = (
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMobileMenuOpen}
-        onClose={this.handleMenuClose}
-      >
-          <Link to="/dashboard">
-        <MenuItem >
-            <Home/>
-          <p>Home</p>
-        </MenuItem>
-          </Link>
-          <Link to="/favorites">
-        <MenuItem>
-            <Favorite />
-          <p>Favorites</p>
-        </MenuItem>
-          </Link>
-          <Link to="/account">
-        <MenuItem >
-            <AccountCircle />
-          <p>Profile</p>
-        </MenuItem>
-          </Link>
-      </Menu>
-    );
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              BestForMe
-            </Typography>
-
-            <div className={classes.grow} />
-            {/* <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                fullWidth="true"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div> */}
-            <div className={classes.sectionDesktop}>
-                <Link to="/dashboard">
-              <IconButton color="inherit" >
-                  <Home/>
-              </IconButton>
-                </Link>
-                <Link to="/favorites">
-              <IconButton color="inherit" >
-                  <Favorite />
-              </IconButton>
-                </Link>
-                <Link to="/accounts">
-              <IconButton color="inherit" >
-                <AccountCircle />
-              </IconButton>
-                </Link>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true"
-              onClick={this.handleMobileMenuOpen}
-              color="inherit">
-                <MoreIcon />
-              </IconButton>
-            </div>
-          </Toolbar>
-        </AppBar>
-        {renderMenu}
-        {renderMobileMenu}
-      </div>
-    );
-  }
+                <li>
+                    <Link to="/login">
+                        <i  className=" waves-effect waves-light right-align clearfix small material-icons icons">power_settings_new</i>
+                    </Link>
+                </li>
+            </ul>
+          </div>
+          </nav>
+        );
+    }   
 }
 
-NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(NavBar);
+export default withRouter(NavBar);

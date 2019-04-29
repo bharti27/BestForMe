@@ -6,8 +6,7 @@ import DashBoard from "./components/DashBoard";
 import Login from "./components/Login";
 import {Registration} from "./components/Registration";
 import Favorites from "./components/Favorites";
-import {Account} from "./components/Account";
-import NavBar from "./components/NavBar";
+import SearchResults from "./components/SearchResults";
 import connect from "react-redux/es/connect/connect";
 import {
     BrowserRouter as Router,
@@ -23,12 +22,11 @@ class APP extends Component {
         return (
             <Router>
             <div>
-                <NavBar />
                 <Route path="/login" component={Login} />
                 <PrivateRoute path="/dashboard" component={ DashBoard} auth = { this.props.authUser }/>
                 <Route path="/registration" component={Registration} auth = { this.props.authUser }/>
                 <PrivateRoute path="/favorites" component={Favorites} auth = { this.props.authUser } />
-                <PrivateRoute path="/account" component={Account} auth = { this.props.authUser } />
+                <PrivateRoute path="/search" component={SearchResults} auth = { this.props.authUser } />
             </div>
         </Router> );
     }

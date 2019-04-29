@@ -1,5 +1,8 @@
-
-.h1{
+body{
+    display: block;
+    position: relative;
+}
+h1{
     margin: 0;
 }
 .login-container {
@@ -10,8 +13,18 @@
     margin-left: calc( 50% - 250px );
     padding: 35px;
     height: 320px;
+    background-color: #f9f8f8;
 }
-
+.login-background{
+    background-image: url(./Criterion-Collection.jpg);
+    height: calc( 100vh - 80px);
+    width: 100%;
+    background-size: auto;
+    z-index: -1;
+    position: absolute;
+    top: 80px;
+    opacity: 0.85;
+}
 .stepperComp {
   width: 500px;
   margin-left: calc( 50% - 250px );
@@ -26,27 +39,27 @@
     padding: 40px;
 }
 .owl-prev{
-    background: #ff9800 !important;
+    background: inherit;
     position: absolute;
     top: 2%;
-    height: 277px;
+    height: 340px;
     width: 25px;
     left: -30px;
     border-radius: 4px;
-    color: white !important;
+    color: inherit;
     font-size: 30px !important;
     /*line-height: 50px !important;*/
     /*box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);*/
 }
 .owl-next{
-    background: #ff9800 !important;
+    background: inherit;
     position: absolute;
     top: 2%;
-    height: 277px;
+    height: 340px;
     width: 25px;
     border-radius: 4px;
     right : -30px;
-    color: white !important;
+    color: inherit;
     font-size: 30px !important;
     /*line-height: 50px !important;*/
     /*box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);*/
@@ -56,11 +69,18 @@
     font-size: 12px;
 }
 .card {
-    /*height: 300px;*/
+    display: inline-block;
+    width: 300px !important;;
+    height: 340px !important;
+    overflow: hidden;
+
 }
 .trending {
     height: 450px;
     display: block;
+}
+.favorites {
+    padding: 40px;
 }
 
 @keyframes modal-video {
@@ -192,4 +212,105 @@
     border-radius: 5px;
     margin-top: -6px
 }
-
+.carousel{
+    /*overflow: hidden; */
+    position: relative;
+    width: 100%;
+    height: 600px !important;
+    -webkit-perspective: 2500px;
+    perspective: 2500px !important;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+    top: -90px;
+    left: -2%;
+    padding: 0 0 100px 0;
+    transform: scaleX( 1.2 );
+    margin: 30px 30px 0 30px;
+    transform: translateZ(0);
+}
+.carousel-item{
+    visibility: hidden;
+    width: 350px !important;
+    height: 500px !important;
+}
+.header{
+    margin: 0;
+    height: 80px !important;
+    background: #333333;
+    box-sizing: border-box;
+    line-height: 80px;
+}
+.header__heading {
+    display: inline-block;
+    width: 85%;
+    margin: 0;
+    padding: 0 0 0 30px;
+    color: white;
+}
+.header__heading__nav {
+    display: inline-block;
+    width: 35%;
+    margin: 0;
+    padding: 0 0 0 30px;
+    color: white;
+}
+.dropdown-content{
+    top: 55px !important;
+    background-color: initial !important;
+}
+.nav-wrapper .input-field{
+    display: inline-block !important;
+    width: 35% !important;
+    background-color: white;
+    border-radius: 4px;
+    height: 50px;
+    margin: 0;
+    position: relative;
+    top: 5px;
+}
+#search{
+   color: black;
+    height: 100%;
+    display: block;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    left: 40px
+}
+#search:focus{
+    border-bottom: none;
+    box-shadow: none;
+}
+.nav-wrapper .input-field .label-icon active {
+    color: black;
+}
+.search_icon{
+    box-sizing: border-box;
+    height: 50px !important;
+    line-height: 50px !important;
+    padding: 0 0 0 13px;
+    color: black;
+}
+.trending__heading {
+    margin: -7% 0 10px 0;
+}
+.disabled{
+    opacity: 0.4;
+}
+.card .card-action{
+    bottom: 0%;
+    height: 20%;
+}
+.card .card-content{
+    height: 80%;
+}
+.halfway-fab-2{
+    bottom: inherit !important;
+    top: -16px !important;
+}
+.icons{
+    height: 80px !important;
+    line-height: 80px !important;
+}
