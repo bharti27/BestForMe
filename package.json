@@ -30,7 +30,7 @@
     "redux": "latest",
     "redux-injector": "^0.1.0",
     "redux-thunk": "^2.3.0",
-    "underscore": "^4.16.4"
+    "underscore": "^1.9.1"
   },
   "scripts": {
     "start": "react-scripts start",
