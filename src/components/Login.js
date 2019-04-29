@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import loginDetails from '../usersDetails';
 import { connect } from "react-redux";
 import { addAuthenticatedUser } from "../actions";
 import { Header } from './Header';
@@ -50,7 +49,7 @@ class Login extends Component {
     submit( event ) {
         event.preventDefault();
         event.stopPropagation();
-        let login =JSON.parse( JSON.stringify(loginDetails) ).loginDetails;
+        let login =this.props.loginDetails;
         if ( login.users[ this.state.username ] != null ) {
             if ( login.users[ this.state.username ].password === this.state.password ) {
                 this.props.storeAuthenticatedUser( { ...login.users[ this.state.username ] } );
@@ -73,7 +72,10 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-    return { store: state.authUser};
+    return {
+        store: state.simpleReducer.authUser,
+        loginDetails: state.simpleReducer
+    };
 };
 
 function mapDispatchToProps(dispatch) {

@@ -7,3 +7,6 @@ export function addCardToFav( payload ) {
 export function removeCardFromFav( payload ) {
     return { type: "REMOVE_CARD_FROM_FAV", payload }
 }
+export function createNewUser( payload ) {
+    return { type: "CREATE_NEW_USER", payload }
+}

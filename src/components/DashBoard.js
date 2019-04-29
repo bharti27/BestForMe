@@ -34,6 +34,9 @@ export class DashBoard extends Component {
         this.getTrending = this.getTrending.bind( this );
         this.renderMovies2 = this.renderMovies2.bind( this );
     }
+     componentWillReceiveProps() {
+        //this.getTasteDiveResult();
+     }
     componentDidMount() {
         $( 'body' ).css( {
             background: this.props.authUser.primaryColor,
@@ -48,12 +51,14 @@ export class DashBoard extends Component {
         this.setState( {media: response.results}, this.initCarousel );
     }
     componentWillMount() {
+        this.getTasteDiveResult();
+    }
+    getTasteDiveResult = () => {
         const callbackMethod = response  => {
             this.setState( {data: response}, this.getMovieList );
         };
         APP.getResultsFromTasteDive( { q: this.props.authUser.similar.join(","), info: 1 }, callbackMethod  );
-
-    }
+    };
     getMovieList() {
         APP.getMovieListWithGeners( this.onSuccess, {
             with_genres: this.props.authUser.genres.join(","),
@@ -70,7 +75,12 @@ export class DashBoard extends Component {
     }
 
     initCarousel() {
-        $('.owl-carousel').owlCarousel( {
+        var owl =  $('.owl-carousel');
+        // if ( owl.length !== 0 ) {
+        //     owl.owlCarousel('destroy');
+        // }
+
+        owl.owlCarousel( {
             loop:false,
             margin:30,
             nav:true,
