@@ -216,7 +216,7 @@ class SearchResults extends Component {
                     <div className="">
                         <div className="row"/>
                         <div className= "row ">
-                            {this.state.Results.map((value, index) => {
+                            {this.state.resultsOutput.map((value, index) => {
                                 if ( value.title === undefined ) {
                                     return <MediaCards data={value} key={value.yID}/>;
                                 } else {
