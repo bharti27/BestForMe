@@ -9,13 +9,13 @@ const initialState = {
             "firstName": "Bharti",
             "lastName": "Sharma",
             "age": "24",
-            "genres": [ 28, 35, 18, 10402, 10749, 878, 10749 ],
+            "genres": [ 28, 12, 35 ],
             "similarMovieId": [  ],
             "preferredMediaType": [ "movie", "book", "music", "show" ],
             "primaryColor": "#e0e0e0",
             "secondaryColor": "#333333",
             "favorites": [],
-            "similar": [ ],
+            "similar": [ "book:Game Of Thrones", "Black Panther", "movie:harry potter"  ],
             "language": "hi",
             "region":"IN",
             "certification_country": "IN",
@@ -104,19 +104,13 @@ function rootReducer(state = initialState, action) {
             }
 
         });
-        //     state.authUser.favorites.splice(  state.authUser.favorites.findIndex( ( item ) => {
-        //         if ( action.payload.name === item.name || action.payload.title === item.title ) {
-        //             return true;
-        //         }
-        //     }), 1 );
-        // state.users[ state.authUser.username ].favorites = state.authUser.favorites;
-        // state.authUser.similar.splice(state.authUser.favorites.findIndex( ( item ) => {
-        //     if ( action.payload.name === item || action.payload.title === item ) {
-        //         return true;
-        //     }
-        // }), 1 );
-        // state.users[ state.authUser.username ].similar = state.authUser.similar ;
-
+    } else if ( "CREATE_NEW_USER" === action.type  ) {
+        state.authUser = {
+            ...action.payload
+        };
+        state.users[ action.payload.username ] = {
+            ...action.payload
+        };
     }
     return state;
 }

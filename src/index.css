@@ -314,3 +314,22 @@ h1{
     height: 80px !important;
     line-height: 80px !important;
 }
+.genre-checkbox{
+    height: 50px;
+    border-radius: 4px;
+    line-height: 50px;
+}
+.MuiPaper-root-5{
+    background-color: inherit;
+}
+.stepperComp span{
+    font-size: 18px;
+}
+.MuiInput-input-163{
+    border: none !important;
+    box-shadow: none;
+}
+.MuiInput-input-163:focus{
+    border: none;
+    box-shadow: none !important;
+}
