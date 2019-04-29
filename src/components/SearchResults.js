@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
 import APP from "../Utils";
 
@@ -80,8 +81,10 @@ class SearchResults extends Component {
     retrieveData()  {
         const values = queryString.parse(this.props.history.location.search);
         var _self = this;
+        
 
         let callbackMethod = response  => {
+            //alert(JSON.stringify(response));
             let nowUpdate = ()  => {
                 _self.setState( {
                     Results: response.Similar.Results,
@@ -89,6 +92,7 @@ class SearchResults extends Component {
                     resultsOutput: response.Similar.Results
                 } );
             };
+            
             if (response !== undefined && response !== null){
                 _self.setState( {
                     Results: [],
@@ -97,7 +101,7 @@ class SearchResults extends Component {
                     query: values.filter
                 }, nowUpdate);
             }
-
+            
         };
         APP.getResultsFromTasteDive( { q: values.filter, info: 1 }, callbackMethod  );
     }
@@ -127,6 +131,23 @@ class SearchResults extends Component {
           this.setState({ sortBy: tempBy});
         }
         this.sortResults(tempBy, tempDir)
+      };
+
+      // "Not Found" response looks like this
+    // {"Similar":{"Info":[{"Name":"xdx","Type":"unknown"},{"Name":"xdx","Type":"unknown"}],"Results":[]}}
+      foundValidResults = () => {
+          //alert(JSON.stringify(this.state.infoOutput))
+          try {
+              if(this.state.infoOutput === undefined || this.state.infoOutput === [] || _.first(this.state.infoOutput).Type === "unknown") {
+                  return false;
+              }
+              if(this.state.resultsOutput === undefined || this.state.resultsOutput === [] ) {
+                return false;
+                }
+              return true;
+          } catch {
+            return false;
+          }
       };
 
 
@@ -187,7 +208,32 @@ class SearchResults extends Component {
                 </div>
             </div>
         );
+        
+        const noInfoDisplay = (
+            <div>
+                <Paper className={classes.root} elevation={1}>
+                    <Typography variant="h5" component="h3">
+                    No results for "{this.query}"
+                    </Typography>
+                </Paper>
+            </div>
+        );
 
+        const resultsDisplay = (
+            <div className="">
+                <div className="row"/>
+                <div className= "row ">
+                    {this.state.resultsOutput.map((value, index) => {
+                        if ( value.title === undefined ) {
+                            return <MediaCards data={value} key={value.yID}/>;
+                        } else {
+                            return <Cards data={value} key={value.id}/>;
+                        }
+
+                    })}
+                </div>
+            </div>
+        );
 
         return (
             <div>
@@ -200,7 +246,8 @@ class SearchResults extends Component {
                         </Typography>
                     </Toolbar>
                     </AppBar>
-                    {infoDisplay}
+                    {/* {infoDisplay} */}
+                    { this.foundValidResults ? infoDisplay : noInfoDisplay}
                     <AppBar position="static" color="default">
                     <Toolbar>
                         <Typography variant="h6" color="inherit">
@@ -213,19 +260,8 @@ class SearchResults extends Component {
                         </div>
                     </Toolbar>
                     </AppBar>
-                    <div className="">
-                        <div className="row"/>
-                        <div className= "row ">
-                            {this.state.resultsOutput.map((value, index) => {
-                                if ( value.title === undefined ) {
-                                    return <MediaCards data={value} key={value.yID}/>;
-                                } else {
-                                    return <Cards data={value} key={value.id}/>;
-                                }
-
-                            })}
-                        </div>
-                    </div>
+                    {this.foundValidResults  ? resultsDisplay : noInfoDisplay}
+                    {/* {resultsDisplay} */}
                 </div>
             </div>
         
