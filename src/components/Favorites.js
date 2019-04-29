@@ -158,8 +158,8 @@ class Favorites extends Component {
                             <div className= "row ">
                               {this.state.favorites .map((value, index) => {
                                 if ( value.title === undefined ) {
-                                  if (value.Type === "book") {
-                                      return <BookCards data={value} key={value.yID} callback={this.openModal}/>
+                                  if (value.Type === "book" || value.Type === "author") {
+                                      return <BookCards data={value} key={value.wUrl+index} callback={this.openModal}/>
                                   } else {
                                       return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
                                   }

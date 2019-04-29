@@ -114,11 +114,16 @@ class SearchResults extends Component {
 
     
     sortResults = (by, dir) =>{
+        let tempBy = by;
+        if (by === "name") {
+            tempBy = [function(o) { return o.name || o.title; }]
+        }
+
         if (dir === "d"){
-            this.setState({ resultsOutput: _.sortBy(this.state.Results, by).reverse()})
+            this.setState({ resultsOutput: _.sortBy(this.state.Results, tempBy).reverse()})
         } else {
         // a is default, if dir is a or anything else, sort ascending
-            this.setState({ resultsOutput: _.sortBy(this.state.Results, by)})
+            this.setState({ resultsOutput: _.sortBy(this.state.Results, tempBy)})
         }
     };
 
@@ -142,7 +147,6 @@ class SearchResults extends Component {
       // "Not Found" response looks like this
       // {"Similar":{"Info":[{"Name":"xdx","Type":"unknown"},{"Name":"xdx","Type":"unknown"}],"Results":[]}}
       foundValidResults = () => {
-          //alert(JSON.stringify(this.state.infoOutput))
           try {
               if(this.state.infoOutput === undefined || this.state.infoOutput === [] || _.first(this.state.infoOutput).Type === "unknown") {
                   return false;
@@ -209,6 +213,7 @@ class SearchResults extends Component {
               <option value={"d"}>Decsending</option>
             </Select>
           </FormControl>
+
         </div>);
         let isUnknown = false;
         const infoDisplay = (
@@ -218,8 +223,8 @@ class SearchResults extends Component {
                     {this.state.infoOutput.map((value, index) => {
                         if ( value.Type !== "unknown"  ) {
                             if ( value.title === undefined ) {
-                                if (value.Type === "book") {
-                                    return <BookCards data={value} key={value.yID} callback={this.openModal}/>
+                                if (value.Type === "book" || value.Type === "author") {
+                                    return <BookCards data={value} key={value.wUrl+index} callback={this.openModal}/>;
                                 } else {
                                     return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
                                 }
@@ -256,8 +261,8 @@ class SearchResults extends Component {
                 <div className= "row ">
                     {this.state.resultsOutput.map((value, index) => {
                         if ( value.title === undefined ) {
-                            if (value.Type === "book") {
-                                return <BookCards data={value} key={value.yID} callback={this.openModal}/>
+                            if (value.Type === "book" || value.Type === "author") {
+                                return <BookCards data={value} key={value.wUrl+index} callback={this.openModal}/>;
                             } else {
                                 return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
                             }
