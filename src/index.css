@@ -327,9 +327,9 @@ h1{
 }
 .MuiInput-input-163{
     border: none !important;
-    box-shadow: none;
+    box-shadow: none !important;
 }
 .MuiInput-input-163:focus{
-    border: none;
+    border: none !important;
     box-shadow: none !important;
 }
