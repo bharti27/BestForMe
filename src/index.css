@@ -244,14 +244,19 @@ h1{
 }
 .header__heading {
     display: inline-block;
-    width: 85%;
+    width: 80%;
     margin: 0;
-    padding: 0 0 0 30px;
+    padding: 0 0 0 20px;
     color: white;
+}
+.logo{
+    width: 60px;
+    margin: 0 0 0 30px;
+    position: relative;
 }
 .header__heading__nav {
     display: inline-block;
-    width: 35%;
+    width: 30%;
     margin: 0;
     padding: 0 0 0 30px;
     color: white;
@@ -266,9 +271,8 @@ h1{
     background-color: white;
     border-radius: 4px;
     height: 50px;
-    margin: 0;
+    margin: 0 20% 0 0 !important;
     position: relative;
-    top: 5px;
 }
 #search{
    color: black;

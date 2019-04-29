@@ -14,6 +14,7 @@ import {addAuthenticatedUser, createNewUser} from "../actions";
 import _ from "lodash";
 import $ from "jquery";
 import {Link} from "react-router-dom";
+import logo from "../logo.png";
 
 
 class Registration extends Component {
@@ -209,7 +210,8 @@ class Registration extends Component {
 
           return (
               <div>
-                  <div className= "header clearfix">
+                  <div className= "header valign-wrapper  clearfix">
+                      <img src={logo} alt = "logo" className="logo"/>
                       <h4 className="left-align clearfix header__heading">BestForMe</h4>
                       <Link to = "/login"><p className="waves-effect waves-light btn right-align clearfix">Back to Login</p></Link>
                   </div>

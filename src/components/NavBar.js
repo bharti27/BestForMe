@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import $ from "jquery";
 import searchResults from './SearchResults';
 import * as ReactDOM from "react-dom";
+import logo from "../logo.png";
 class NavBar extends Component{
     constructor( props ) {
         super( props );
@@ -31,7 +32,8 @@ class NavBar extends Component{
     render() {
         return (
             <nav className=" header clearfix">
-                <div className = "nav-wrapper">
+                <div className = "nav-wrapper valign-wrapper">
+                    <img src={logo} alt = "logo" className="logo"/>
                     <h4 className = "left-align clearfix header__heading__nav"> BestForMe </h4>
 
                     <div className="input-field">
