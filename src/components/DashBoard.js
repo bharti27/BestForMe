@@ -247,9 +247,8 @@ export class DashBoard extends Component {
         } else {
             APP.getResultsFromYouTube( { q: p.title + " Official Trailer" },onVideoDetails );
         }
-
-
     }
+    
     handleClose() {
         this.setState( {modalOpen: false, modalURLId: "", modalType: "" } );
         $('.owl-carousel').trigger('refresh.owl.carousel');

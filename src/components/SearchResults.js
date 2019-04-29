@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import M from "materialize-css";
 import MediaCards from "../MediaCard";
 import Cards from "./Cards";
+import BookCards from "./BookCards";
 import { connect } from "react-redux";
 import NavBar from "./NavBar";
 import $ from "jquery";
@@ -56,8 +57,8 @@ class SearchResults extends Component {
             Results:[],
             infoOutput: [],
             resultsOutput: [],
-            sortBy: "Added",
-            sortDirection: "a", // a -> ascending, d -> descending
+            sortBy: "Relevance",
+            sortDirection: "asc", // asc -> ascending, desc -> descending
             modalOpen: false,
             modalURLId: "",
             modalType: ""
@@ -112,11 +113,13 @@ class SearchResults extends Component {
 
     
     sortResults = (by, dir) =>{
-        if (dir === "d"){
-            this.setState({ resultsOutput: _.sortBy(this.state.Results, by).reverse()})
+        if (by === "name") {
+            this.setState({resultsOutput: _.orderBy(this.state.Results, ['title', 'name'], [dir])})
+        } else if (by === "Relevance"){
+            dir === "asc" ? this.setState({resultsOutput: this.state.Results}) :
+                                      this.setState({resultsOutput: _.reverse(this.state.Results)})
         } else {
-        // a is default, if dir is a or anything else, sort ascending
-            this.setState({ resultsOutput: _.sortBy(this.state.Results, by)})
+            this.setState({resultsOutput: _.orderBy(this.state.Results, [by], [dir])})
         }
     };
 
@@ -138,9 +141,8 @@ class SearchResults extends Component {
       };
 
       // "Not Found" response looks like this
-    // {"Similar":{"Info":[{"Name":"xdx","Type":"unknown"},{"Name":"xdx","Type":"unknown"}],"Results":[]}}
+      // {"Similar":{"Info":[{"Name":"xdx","Type":"unknown"},{"Name":"xdx","Type":"unknown"}],"Results":[]}}
       foundValidResults = () => {
-          //alert(JSON.stringify(this.state.infoOutput))
           try {
               if(this.state.infoOutput === undefined || this.state.infoOutput === [] || _.first(this.state.infoOutput).Type === "unknown") {
                   return false;
@@ -153,6 +155,18 @@ class SearchResults extends Component {
             return false;
           }
       };
+
+    openModal( p ) {
+        var _self = this;
+        const onVideoDetails = function( response ) {
+            _self.setState( {modalOpen: true, modalURLId: response.items[0].id.videoId, modalType: "" } );
+        };
+        if ( p.title === undefined ) {
+            APP.getResultsFromYouTube( { q: p.Name + " Official Trailer" },onVideoDetails );
+        } else {
+            APP.getResultsFromYouTube( { q: p.title + " Official Trailer" },onVideoDetails );
+        }
+    }
 
 
     render() {
@@ -172,6 +186,7 @@ class SearchResults extends Component {
                 id: 'sort-by-selector',
               }}
             >
+              <option value={"Relevance"}>Default</option> {/*Changed to default because API return order != relevance */}
               <option value={"Name"}>Name</option>
               <option value={"Type"}>Type</option>
             </Select>
@@ -191,37 +206,51 @@ class SearchResults extends Component {
                 name: 'sortDirection',
                 id: 'sort-dir-selector',
               }}>
-              <option value={"a"}>Ascending</option>
-              <option value={"d"}>Decsending</option>
+              <option value={"asc"}>Ascending</option>
+              <option value={"desc"}>Decsending</option>
             </Select>
           </FormControl>
-        </div>);
 
+        </div>);
+        let isUnknown = false;
         const infoDisplay = (
             <div className="">
                 <div className="row"/>
                 <div className= "row ">
                     {this.state.infoOutput.map((value, index) => {
-                        if ( value.title === undefined ) {
-                            return <MediaCards data={value} key={value.yID} callBack={this.openModal}/>;
+                        if ( value.Type !== "unknown"  ) {
+                            if ( value.title === undefined ) {
+                                if (value.Type === "book" || value.Type === "author") {
+                                    return <BookCards data={value} key={value.wUrl+index} callback={this.openModal}/>;
+                                } else {
+                                    return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
+                                }
+                            }
+                            else {
+                                return <Cards data={value} key={value.id} callback={this.openModal}/>;
+                            }
+    
                         } else {
-                            return <Cards data={value} key={value.id} callBack={this.openModal}/>;
+                            if ( !isUnknown ) {
+                                isUnknown = true;
+                                return (
+                                    <div>
+                                        <Paper className={classes.root} elevation={1}>
+                                            <Typography variant="h5" component="h3">
+                                            No results for {this.query}
+                                            </Typography>
+                                        </Paper>
+                                    </div>
+                                );
+                            }
+                            
                         }
-
+                        
                     })}
                 </div>
             </div>
         );
         
-        const noInfoDisplay = (
-            <div>
-                <Paper className={classes.root} elevation={1}>
-                    <Typography variant="h5" component="h3">
-                    No results for "{this.query}"
-                    </Typography>
-                </Paper>
-            </div>
-        );
 
         const resultsDisplay = (
             <div className="">
@@ -229,9 +258,14 @@ class SearchResults extends Component {
                 <div className= "row ">
                     {this.state.resultsOutput.map((value, index) => {
                         if ( value.title === undefined ) {
-                            return <MediaCards data={value} key={value.yID} callBack={this.openModal}/>;
-                        } else {
-                            return <Cards data={value} key={value.id} callBack={this.openModal}/>;
+                            if (value.Type === "book" || value.Type === "author") {
+                                return <BookCards data={value} key={value.wUrl+index} callback={this.openModal}/>;
+                            } else {
+                                return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
+                            }
+                        }
+                        else {
+                            return <Cards data={value} key={value.id} callback={this.openModal}/>;
                         }
 
                     })}
@@ -256,8 +290,7 @@ class SearchResults extends Component {
                         </Typography>
                     </Toolbar>
                     </AppBar>
-                    {/* {infoDisplay} */}
-                    { this.foundValidResults ? infoDisplay : noInfoDisplay}
+                    {infoDisplay}
                     <AppBar position="static" color="default">
                     <Toolbar>
                         <Typography variant="h6" color="inherit">
@@ -270,8 +303,7 @@ class SearchResults extends Component {
                         </div>
                     </Toolbar>
                     </AppBar>
-                    {this.foundValidResults  ? resultsDisplay : noInfoDisplay}
-                    {/* {resultsDisplay} */}
+                    {resultsDisplay}
                 </div>
             </div>
         
