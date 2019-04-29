@@ -46,6 +46,11 @@ const styles = theme => ({
     grow: {
       flexGrow: 1,
     },
+    noResults: {
+        ...theme.mixins.gutters(),
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
+    }
   });
 
 class SearchResults extends Component {
@@ -234,10 +239,11 @@ class SearchResults extends Component {
                             if ( !isUnknown ) {
                                 isUnknown = true;
                                 return (
-                                    <div>
-                                        <Paper className={classes.root} elevation={1}>
-                                            <Typography variant="h5" component="h3">
-                                            No results for {this.query}
+                                    
+                                    <div className="row">
+                                        <Paper className="center" elevation={1} color="inherit">
+                                            <Typography variant="h5" component="h3" align="center" >
+                                                No results for {this.state.query}
                                             </Typography>
                                         </Paper>
                                     </div>
