@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
 import APP from "../Utils";
+import ModalVideo from "react-modal-video";
 
 const styles = theme => ({
     root: {
@@ -58,12 +59,12 @@ class SearchResults extends Component {
             resultsOutput: [],
             sortBy: "Added",
             sortDirection: "a", // a -> ascending, d -> descending
-        // For Card Modals
             modalOpen: false,
             modalURLId: "",
-            modalType: "",
-            media: [],
+            modalType: ""
         };
+        this.openModal = this.openModal.bind( this );
+        this.handleClose = this.handleClose.bind( this );
       }
 
     componentDidMount() {
@@ -87,8 +88,6 @@ class SearchResults extends Component {
     retrieveData()  {
         const values = queryString.parse(this.props.history.location.search);
         var _self = this;
-        
-
         let callbackMethod = response  => {
             //alert(JSON.stringify(response));
             let nowUpdate = ()  => {
@@ -280,6 +279,12 @@ class SearchResults extends Component {
             <div>
                 <NavBar />
                 <div className={[classes.root, classes.favoritesHeader].join(" ")}>
+                    <ModalVideo
+                        channel='youtube'
+                        isOpen={this.state.modalOpen}
+                        videoId= { this.state.modalURLId }
+                        onClose={ this.handleClose }
+                    />
                 <AppBar position="static" color="default">
                     <Toolbar>
                         <Typography variant="h6" color="inherit">
@@ -305,6 +310,20 @@ class SearchResults extends Component {
             </div>
         
         );
+    }
+    openModal( p ) {
+        var _self = this;
+        const onVideoDetails = function( response ) {
+            _self.setState( {modalOpen: true, modalURLId: response.items[0].id.videoId, modalType: "" } );
+        };
+        if ( p.title === undefined ) {
+            APP.getResultsFromYouTube( { q: p.Name + " Official Trailer" },onVideoDetails );
+        } else {
+            APP.getResultsFromYouTube( { q: p.title + " Official Trailer" },onVideoDetails );
+        }
+    }
+    handleClose() {
+        this.setState( {modalOpen: false, modalURLId: "", modalType: "" } );
     }
 }
 const mapStateToProps = state => {

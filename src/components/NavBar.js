@@ -43,9 +43,6 @@ class NavBar extends Component{
                     </div>
                     <ul className="right hide-on-med-and-down">
                         <li><Link to = "/dashboard">
-                            <i className="waves-effect waves-light right-align clearfix small material-icons icons">refresh</i>
-                        </Link></li>
-                        <li><Link to = "/dashboard">
                             <i className=" waves-effect waves-light right-align clearfix small material-icons icons">home</i>
                         </Link></li>
                         <li><Link to = "/favorites">

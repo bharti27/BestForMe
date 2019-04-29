@@ -33,13 +33,15 @@ class BookCards extends Component {
             this.setState( {
                 heart: "fa"
             } );
+            M.toast({html: 'You have liked '+this.props.data.Name + ' .' } );
+            this.props.cardLiked( this.props.data );
         } else {
             this.setState( {
                 heart: "far"
             } );
+            M.toast({html: 'You have disliked '+this.props.data.Name + ' .' } );
+            this.props.cardDisLiked(  this.props.data  );
         }
-        M.toast({html: 'You have liked '+this.props.data.Name + ' .' } );
-        this.props.cardLiked( this.props.data );
 
     }
     render() {
