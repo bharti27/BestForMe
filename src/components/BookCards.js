@@ -16,12 +16,14 @@ class BookCards extends Component {
         this.state = { heart: this.isLiked(), modalOpen: false };
     }
     isLiked(  ) {
+        var result = "far";
+
         this.props.store.favorites.map( (value, index) => {
                     if ( value.Name === this.props.data.Name ) {
-                        return "fa";
+                        result =  "fa";
                     }
                 } );
-        return "far";
+        return result;
     }
     componentDidMount() {
     }
