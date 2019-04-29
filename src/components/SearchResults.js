@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import _ from 'lodash';
 import APP from "../Utils";
+import ModalVideo from "react-modal-video";
 
 const styles = theme => ({
     root: {
@@ -56,8 +57,13 @@ class SearchResults extends Component {
             infoOutput: [],
             resultsOutput: [],
             sortBy: "Added",
-            sortDirection: "a" // a -> ascending, d -> descending
+            sortDirection: "a", // a -> ascending, d -> descending
+            modalOpen: false,
+            modalURLId: "",
+            modalType: ""
         };
+        this.openModal = this.openModal.bind( this );
+        this.handleClose = this.handleClose.bind( this );
       }
 
     componentDidMount() {
@@ -81,8 +87,6 @@ class SearchResults extends Component {
     retrieveData()  {
         const values = queryString.parse(this.props.history.location.search);
         var _self = this;
-        
-
         let callbackMethod = response  => {
             //alert(JSON.stringify(response));
             let nowUpdate = ()  => {
@@ -199,9 +203,9 @@ class SearchResults extends Component {
                 <div className= "row ">
                     {this.state.infoOutput.map((value, index) => {
                         if ( value.title === undefined ) {
-                            return <MediaCards data={value} key={value.yID}/>;
+                            return <MediaCards data={value} key={value.yID} callBack={this.openModal}/>;
                         } else {
-                            return <Cards data={value} key={value.id}/>;
+                            return <Cards data={value} key={value.id} callBack={this.openModal}/>;
                         }
 
                     })}
@@ -225,9 +229,9 @@ class SearchResults extends Component {
                 <div className= "row ">
                     {this.state.resultsOutput.map((value, index) => {
                         if ( value.title === undefined ) {
-                            return <MediaCards data={value} key={value.yID}/>;
+                            return <MediaCards data={value} key={value.yID} callBack={this.openModal}/>;
                         } else {
-                            return <Cards data={value} key={value.id}/>;
+                            return <Cards data={value} key={value.id} callBack={this.openModal}/>;
                         }
 
                     })}
@@ -239,6 +243,12 @@ class SearchResults extends Component {
             <div>
                 <NavBar />
                 <div className={[classes.root, classes.favoritesHeader].join(" ")}>
+                    <ModalVideo
+                        channel='youtube'
+                        isOpen={this.state.modalOpen}
+                        videoId= { this.state.modalURLId }
+                        onClose={ this.handleClose }
+                    />
                 <AppBar position="static" color="default">
                     <Toolbar>
                         <Typography variant="h6" color="inherit">
@@ -266,6 +276,20 @@ class SearchResults extends Component {
             </div>
         
         );
+    }
+    openModal( p ) {
+        var _self = this;
+        const onVideoDetails = function( response ) {
+            _self.setState( {modalOpen: true, modalURLId: response.items[0].id.videoId, modalType: "" } );
+        };
+        if ( p.title === undefined ) {
+            APP.getResultsFromYouTube( { q: p.Name + " Official Trailer" },onVideoDetails );
+        } else {
+            APP.getResultsFromYouTube( { q: p.title + " Official Trailer" },onVideoDetails );
+        }
+    }
+    handleClose() {
+        this.setState( {modalOpen: false, modalURLId: "", modalType: "" } );
     }
 }
 const mapStateToProps = state => {

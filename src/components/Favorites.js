@@ -12,6 +12,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import _ from 'lodash';
+import ModalVideo from "react-modal-video";
+import APP from "../Utils";
 
 const styles = theme => ({
   root: {
@@ -49,8 +51,13 @@ class Favorites extends Component {
     this.state  = {
         favorites: {},
         sortBy: "Added",
-        sortDirection: "a" // a -> ascending, d -> descending
+        sortDirection: "a", // a -> ascending, d -> descending
+        modalOpen: false,
+        modalURLId: "",
+        modalType: ""
     };
+      this.openModal = this.openModal.bind( this );
+      this.handleClose = this.handleClose.bind( this );
   }
     componentDidMount() {
         $( 'body' ).css( {
@@ -157,9 +164,9 @@ class Favorites extends Component {
                             <div className= "row ">
                               {this.state.favorites .map((value, index) => {
                                   if ( value.title === undefined ) {
-                                      return <MediaCards data={value} key={value.yID}/>;
+                                      return <MediaCards data={value} key={value.yID} callBack={this.openModal}/>;
                                   } else {
-                                      return <Cards data={value} key={value.id}/>;
+                                      return <Cards data={value} key={value.id} callBack={this.openModal}/>;
                                   }
 
                               })}
@@ -170,7 +177,13 @@ class Favorites extends Component {
       return (
         <div>
           <NavBar />
-          <div className={[classes.root, classes.favoritesHeader].join(" ")}> 
+          <div className={[classes.root, classes.favoritesHeader].join(" ")}>
+              <ModalVideo
+                  channel='youtube'
+                  isOpen={this.state.modalOpen}
+                  videoId= { this.state.modalURLId }
+                  onClose={ this.handleClose }
+              />
             <AppBar position="static" color="default">
               <Toolbar>
                 <Typography variant="h6" color="inherit">
@@ -187,6 +200,21 @@ class Favorites extends Component {
           </div>
         </div>
       );
+    }
+
+    openModal( p ) {
+        var _self = this;
+        const onVideoDetails = function( response ) {
+            _self.setState( {modalOpen: true, modalURLId: response.items[0].id.videoId, modalType: "" } );
+        };
+        if ( p.title === undefined ) {
+            APP.getResultsFromYouTube( { q: p.Name + " Official Trailer" },onVideoDetails );
+        } else {
+            APP.getResultsFromYouTube( { q: p.title + " Official Trailer" },onVideoDetails );
+        }
+    }
+    handleClose() {
+        this.setState( {modalOpen: false, modalURLId: "", modalType: "" } );
     }
 }
 

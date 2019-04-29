@@ -33,19 +33,21 @@ class BookCards extends Component {
             this.setState( {
                 heart: "fa"
             } );
+            M.toast({html: 'You have liked '+this.props.data.Name + ' .' } );
+            this.props.cardLiked( this.props.data );
         } else {
             this.setState( {
                 heart: "far"
             } );
+            M.toast({html: 'You have disliked '+this.props.data.Name + ' .' } );
+            this.props.cardDisLiked(  this.props.data  );
         }
-        M.toast({html: 'You have liked '+this.props.data.Name + ' .' } );
-        this.props.cardLiked( this.props.data );
 
     }
     render() {
 
         return (
-            <div className="col s4 item">
+            <div className="col item">
                     <div className="card hoverable">
                         <div className="card-content ">
                             <span className="card-title">{ this.props.data.Name }</span>
