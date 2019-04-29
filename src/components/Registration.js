@@ -11,95 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import ColorPicker from 'material-ui-color-picker'
 
-
-function basicInfo(){
-  return(
-    <form>
-      <label>
-        First Name:
-        <input type="text" name="firstName" />
-      </label>
-      <label>
-       Last Name:
-        <input type="text" name="lastName" />
-      </label>
-      <label>
-        Age:
-        <input type="number" name="age" />
-      </label>
-      <label>
-        Password:
-        <input type="password" name="password" />
-      </label>
-    </form>
-  )
-}
-
-function mediaTypes(){
-  // return(
-  //   <form>
-  //       <label>
-  //         Music
-  //         <input
-  //           name="Music"
-  //           type="checkbox"
-  //
-  //           onClick={this.handleClick}
-  //            />
-  //       </label>
-  //       </form>
-  // )
-
-  }
-
-
-function genre(){
-  //return(
-  //check box to pick genre
-  //)
-}
-
-function interests(){
-  //return(
-    //check box for interests
-  //)
-}
-
-function color(){
-  return(
-    <ColorPicker
-    name='color'
-    defaultValue='#000'
-    // value={this.state.color} - for controlled component
-    onChange={color => console.log(color)}
-
-  />
-  )
-
-}
-
-function getSteps() {
-  return ['Basic Information', 'Media Types', 'Genre', 'Interests', 'Color'];
-}
-
-function getStepContent(step) {
-  switch (step) {
-   case 0:
-      return basicInfo();
-   case 1:
-      return mediaTypes();
-   case 2:
-      return genre();
-   case 3:
-      return interests();
-   case 4:
-     return color();
-  default:
-    return 'unknown step';
-  }
-}
-
 export class Registration extends Component {
+
   constructor( props ) {
       super( props );
       this.state = {
@@ -108,20 +21,222 @@ export class Registration extends Component {
         lastName: '',
         password: '',
         age: '',
-        interestList: [],
-        mediaType: [],
-        primaryColor: '',
-        secondaryColor: ''
+        interestList: null,
+        mediaType: null,
+        genreList: null,
+        color: ''
       };
+  }
+
+  mediaTypes(){
+    return(
+      <form>
+          <label>
+            <h6>Music</h6>
+            <Checkbox
+              name="Music"
+              type="checkbox"
+              onClick={this.handleChangeMus}
+               />
+          </label>
+          <label>
+            <h6>Books</h6>
+            <Checkbox
+              name="Books"
+              type="checkbox"
+              onClick={this.handleChangeBook}
+               />
+          </label>
+          <label>
+            <h6>Movies</h6>
+            <Checkbox
+              name="Movies"
+              type="checkbox"
+              onClick={this.handleChangeMov}
+               />
+          </label>
+          </form>
+    )}
+
+basicInfo(){
+    return(
+      <form>
+        <label>
+          First Name:
+          <input type="text" name="firstName" />
+        </label>
+        <label>
+         Last Name:
+          <input type="text" name="lastName" />
+        </label>
+        <label>
+          Age:
+          <input type="number" name="age" />
+        </label>
+        <label>
+          Password:
+          <input type="password" name="password" />
+        </label>
+      </form>
+    )
+  }
+
+
+   genre(){
+     return(
+       <form>
+           <label>
+             <h6>Comedy</h6>
+             <Checkbox
+               name="Comedy"
+               type="checkbox"
+               onClick={this.handleChangeCom}
+                />
+           </label>
+           <label>
+             <h6>Romance</h6>
+             <Checkbox
+               name="Romance"
+               type="checkbox"
+               onClick={this.handleChangeRom}
+                />
+           </label>
+           <label>
+             <h6>Mystery</h6>
+             <Checkbox
+               name="Mystery"
+               type="checkbox"
+               onClick={this.handleChangeMyst}
+                />
+           </label>
+           </form>
+     )
+  }
+
+   interests(){
+     return(
+       <form>
+           <label>
+             <h6>Black Panther</h6>
+             <Checkbox
+               name="BlackPanther"
+               type="checkbox"
+               onClick={this.handleChangeBP}
+                />
+           </label>
+           <label>
+             <h6>Harry Potter</h6>
+             <Checkbox
+               name="HarryPotter"
+               type="checkbox"
+               onClick={this.handleChangeHP}
+                />
+           </label>
+           <label>
+             <h6>Game of Thrones</h6>
+             <Checkbox
+               name="GOT"
+               type="checkbox"
+               onClick={this.handleChangeGOT}
+                />
+           </label>
+           </form>
+     )
+  }
+
+   color(){
+    return(
+      <ColorPicker
+      name='color'
+      defaultValue='#000'
+      //onChange={color => console.log(color)}
+      onChange={this.handleColor}
+    />
+    )
 
   }
 
-   // handleClick = () => {
-   //    //this.setState({state.interestList: [Music]});
-   //    this.setState(state => ({
-   //      interestList: state.interestList[0] = [music],
-   //    }));
-   // };
+   getSteps() {
+    return ['Basic Information', 'Media Types', 'Genre', 'Interests', 'Color'];
+  }
+
+   getStepContent(step) {
+    switch (step) {
+     case 0:
+        return this.basicInfo();
+     case 1:
+        return this.mediaTypes();
+     case 2:
+        return this.genre();
+     case 3:
+        return this.interests();
+     case 4:
+       return this.color();
+    default:
+      return 'unknown step';
+    }
+  }
+
+   handleChangeMus = () => {
+      this.setState(state => ({
+        mediaType: state.interestList.push("music"),
+      }));
+   };
+
+   handleChangeBook = () => {
+      this.setState(state => ({
+        mediaType: state.interestList.push("books"),
+      }));
+   };
+
+   handleChangeMov = () => {
+      this.setState(state => ({
+        mediaType: state.interestList.push("movies"),
+      }));
+   };
+
+   handleChangeCom = () => {
+      this.setState(state => ({
+        genreList: state.interestList.push("comedy"),
+      }));
+   };
+
+   handleChangeRom = () => {
+      this.setState(state => ({
+        genreList: state.interestList.push("romance"),
+      }));
+   };
+
+   handleChangeMyst = () => {
+      this.setState(state => ({
+        genreList: state.interestList.push("mystery"),
+      }));
+   };
+
+   handleChangeBP = () => {
+      this.setState(state => ({
+        interestList: state.interestList.push("Black Panther"),
+      }));
+   };
+
+   handleChangeHP = () => {
+      this.setState(state => ({
+        interestList: state.interestList.push("Harry Potter"),
+      }));
+   };
+
+   handleChangeGOT = () => {
+      this.setState(state => ({
+        interestList: state.interestList.push("Game of Thrones"),
+      }));
+   };
+
+   handleColor = () => {
+      this.setState(state => ({
+        color: state.color.push("color"),
+      }));
+   };
+
 
     handleNext = () => {
       this.setState(state => ({
@@ -148,7 +263,7 @@ export class Registration extends Component {
 
     render() {
       const M = this.props;
-      const steps = getSteps();
+      const steps = this.getSteps();
       const { activeStep } = this.state;
 
       return (
@@ -158,7 +273,7 @@ export class Registration extends Component {
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
               <StepContent>
-              {getStepContent(index)}
+              {this.getStepContent(index)}
                 <div className= "stepperActions">
                   <div>
                     <Button
@@ -183,7 +298,8 @@ export class Registration extends Component {
           ))}
         </Stepper>
         {activeStep === steps.length && (
-            window.location.href = '/dashboard'
+            this.props.history.push('/dashboard'),
+            console.log(this.state)
         )}
       </div>
     );

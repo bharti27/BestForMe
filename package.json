@@ -8,7 +8,6 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
-    "Redux": "latest",
     "connected-react-router": "^6.4.0",
     "history": "latest",
     "jquery": "^3.4.0",
@@ -26,6 +25,7 @@
     "react-router": "latest",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "redux": "latest",
     "redux-injector": "^0.1.0",
     "redux-thunk": "^2.3.0"
   },

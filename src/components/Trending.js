@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 import React, { Component } from 'react';
 import * as M from "materialize-css";
 import Cards from "./Cards";
@@ -45,4 +42,3 @@ export class Trending extends Component {
     }
 }
 export default Trending;
->>>>>>> e01c6129f09375c86c61c0ad372ea34aa0c8e95a

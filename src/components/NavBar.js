@@ -14,17 +14,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Favorite from '@material-ui/icons/Favorite';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Home from '@material-ui/icons/Home';
-<<<<<<< HEAD
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
-=======
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import {
     Link
 } from "react-router-dom";
->>>>>>> e01c6129f09375c86c61c0ad372ea34aa0c8e95a
 const styles = theme => ({
   root: {
     width: '100%',
