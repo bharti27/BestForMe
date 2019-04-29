@@ -117,7 +117,7 @@ class Registration extends Component {
                   <label htmlFor="username">username</label>
               </div>
               <div className="input-field">
-                  <input id="password" type="text" className="" value = {this.state.password} onChange={ this.handleChange( 'password' ) }/>
+                  <input id="password" type="password" className="" value = {this.state.password} onChange={ this.handleChange( 'password' ) }/>
                   <label htmlFor="password">Password</label>
               </div>
           </form>

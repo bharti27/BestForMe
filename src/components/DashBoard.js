@@ -168,20 +168,20 @@ export class DashBoard extends Component {
 
     renderMovies() {
         return this.state.media.map((props, index) => {
-            return <Cards data={props} key={props.id} callBack={this.openModal}/>;
+            return <Cards data={props} key={props.id+index} callBack={this.openModal}/>;
         });
     }
 
     renderMovies2(){
         var mov = this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "movie"  ) {
-                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID+index} callBack={this.openModal}/>;
             }
         });
 
         mov.push( this.state.data.Similar.Info.map((props, index) => {
             if ( props.Type === "movie"  ) {
-                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID+index} callBack={this.openModal}/>;
             }
         }) );
         return mov;
@@ -204,13 +204,13 @@ export class DashBoard extends Component {
     renderMusic() {
         var music = this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "music"  ) {
-                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID+index} callBack={this.openModal}/>;
             }
 
         });
         music.push( this.state.data.Similar.Info.map((props, index) => {
             if ( props.Type === "music"  ) {
-                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID+index} callBack={this.openModal}/>;
             }
 
         }) );
@@ -219,20 +219,20 @@ export class DashBoard extends Component {
     renderPodcast() {
         return this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "podcasts"  ) {
-                return <Cards data={props} key={props.id} callBack={this.openModal}/>;
+                return <Cards data={props} key={props.id+index} callBack={this.openModal}/>;
             }
         });
     }
     renderTvseries() {
         var show = this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "show"  ) {
-                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID+index} callBack={this.openModal}/>;
             }
         });
 
         show.push( this.state.data.Similar.Results.map((props, index) => {
             if ( props.Type === "show"  ) {
-                return <MediaCards data={props} key={props.yID} callBack={this.openModal}/>;
+                return <MediaCards data={props} key={props.yID+index} callBack={this.openModal}/>;
             }
         }) );
         return show;
