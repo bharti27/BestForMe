@@ -226,13 +226,13 @@ class SearchResults extends Component {
                         if ( value.Type !== "unknown"  ) {
                             if ( value.title === undefined ) {
                                 if (value.Type === "book" || value.Type === "author") {
-                                    return <BookCards data={value} key={value.wUrl+index} callback={this.openModal}/>;
+                                    return <BookCards data={value} key={value.wUrl+index} callBack={this.openModal}/>;
                                 } else {
-                                    return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
+                                    return <MediaCards data={value} key={value.yID} callBack={this.openModal}/>;
                                 }
                             }
                             else {
-                                return <Cards data={value} key={value.id} callback={this.openModal}/>;
+                                return <Cards data={value} key={value.id} callBack={this.openModal}/>;
                             }
     
                         } else {
@@ -265,13 +265,13 @@ class SearchResults extends Component {
                     {this.state.resultsOutput.map((value, index) => {
                         if ( value.title === undefined ) {
                             if (value.Type === "book" || value.Type === "author") {
-                                return <BookCards data={value} key={value.wUrl+index} callback={this.openModal}/>;
+                                return <BookCards data={value} key={value.wUrl+index} callBack={this.openModal}/>;
                             } else {
-                                return <MediaCards data={value} key={value.yID} callback={this.openModal}/>;
+                                return <MediaCards data={value} key={value.yID} callBack={this.openModal}/>;
                             }
                         }
                         else {
-                            return <Cards data={value} key={value.id} callback={this.openModal}/>;
+                            return <Cards data={value} key={value.id} callBack={this.openModal}/>;
                         }
 
                     })}

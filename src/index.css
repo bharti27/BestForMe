@@ -42,7 +42,7 @@ h1{
     background: inherit;
     position: absolute;
     top: 2%;
-    height: 340px;
+    height: 350px;
     width: 25px;
     left: -30px;
     border-radius: 4px;
@@ -55,7 +55,7 @@ h1{
     background: inherit;
     position: absolute;
     top: 2%;
-    height: 340px;
+    height: 350px;
     width: 25px;
     border-radius: 4px;
     right : -30px;
@@ -271,7 +271,7 @@ h1{
     background-color: white;
     border-radius: 4px;
     height: 50px;
-    margin: 0 20% 0 0 !important;
+    margin: 0 17% 0 0 !important;
     position: relative;
 }
 #search{

@@ -4,7 +4,7 @@ const initialState = {
     },
     "users": {
         "dexter27": {
-            "password": "hello27",
+            "password": "password",
             "username": "dexter27",
             "firstName": "Dexter",
             "lastName": "",
@@ -30,7 +30,7 @@ const initialState = {
             "with_original_language": "hi"
         },
         "Josephine88": {
-            "password": "h",
+            "password": "password",
             "similarMovieId": [ ],
             "username": "Josephine88",
             "firstName": "Josphine",
