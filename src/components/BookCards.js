@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LoginDetails from '../usersDetails'
 import App from '../Utils'
 import * as M from "materialize-css";
-import {addCardToFav} from "../actions";
+import {addCardToFav, removeCardFromFav} from "../actions";
 import { connect } from "react-redux";
 
 
@@ -73,7 +73,8 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
     return {
-        cardLiked: payload => dispatch( addCardToFav(payload))
+        cardLiked: payload => dispatch( addCardToFav(payload)),
+        cardDisLiked: payload => dispatch( removeCardFromFav(payload))
     };
 }
 export default connect( mapStateToProps, mapDispatchToProps )(BookCards);
