@@ -27,4 +27,11 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
+This is a demo link: http://bharti.project.s3-website-us-east-1.amazonaws.com/ 
+username: dexter27
+password: password
 
+username: Josephine88
+password: password
+
+or you can create a new user by clicking on registration.
