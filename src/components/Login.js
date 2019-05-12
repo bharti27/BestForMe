@@ -69,6 +69,9 @@ class Login extends Component {
             } );
         }
     }
+    componentWillUnmount() {
+        delete this.state;
+    }
 }
 
 const mapStateToProps = state => {

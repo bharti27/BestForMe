@@ -209,11 +209,11 @@ class Registration extends Component {
           const { activeStep } = this.state;
 
           return (
-              <div>
+              <div key ="registration">
                   <div className= "header valign-wrapper  clearfix">
                       <img src={logo} alt = "logo" className="logo"/>
                       <h4 className="left-align clearfix header__heading">BestForMe</h4>
-                      <Link to = "/login"><p className="waves-effect waves-light btn right-align clearfix">Back to Login</p></Link>
+                      <Link to = "/"><p className="waves-effect waves-light btn right-align clearfix">Back to Login</p></Link>
                   </div>
           <div className= "stepperComp">
             <Stepper activeStep={activeStep} orientation="vertical">

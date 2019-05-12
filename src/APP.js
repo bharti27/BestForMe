@@ -22,11 +22,11 @@ class APP extends Component {
         return (
             <Router>
             <div>
-                <Route path="/login" component={Login} />
-                <PrivateRoute path="/dashboard" component={ DashBoard} auth = { this.props.authUser }/>
-                <Route path="/registration" component={Registration} auth = { this.props.authUser }/>
-                <PrivateRoute path="/favorites" component={Favorites} auth = { this.props.authUser } />
-                <PrivateRoute path="/search" component={SearchResults} auth = { this.props.authUser } />
+                <Route path="/" exact key = "login" component={Login} />
+                <PrivateRoute path="/dashboard" key ="dashboard" component={ DashBoard} auth = { this.props.authUser }/>
+                <Route path="/registration" key ="registration" component={Registration} auth = { this.props.authUser }/>
+                <PrivateRoute path="/favorites"  key ="favorites" component={Favorites} auth = { this.props.authUser } />
+                <PrivateRoute path="/search" key ="search" component={SearchResults} auth = { this.props.authUser } />
             </div>
         </Router> );
     }

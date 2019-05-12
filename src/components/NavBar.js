@@ -52,7 +52,7 @@ class NavBar extends Component{
                         </Link></li>
 
                         <li>
-                            <Link to="/login">
+                            <Link to="/">
                                 <i  className=" waves-effect waves-light right-align clearfix small material-icons icons">power_settings_new</i>
                             </Link>
                         </li>
